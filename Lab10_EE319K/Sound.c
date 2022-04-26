@@ -5,7 +5,7 @@
 // Jonathan Valvano
 // 11/15/2021 
 #include <stdint.h>
-#include "../inc/tm4c123gh6pm.h"
+#include "tm4c123gh6pm.h"
 #include "Sound.h"
 #include "DAC.h"
 #include "Timer0.h"

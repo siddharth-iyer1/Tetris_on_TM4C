@@ -6,7 +6,7 @@
 // Last modification date: change this to the last modification date or look very silly
 // Labs 8 and 9 specify PD2
 #include <stdint.h>
-#include "../inc/tm4c123gh6pm.h"
+#include "tm4c123gh6pm.h"
 
 // ADC initialization function using PD2 
 // Input: none

@@ -2,7 +2,7 @@
 // Siddharth Iyer & Kyle Le
 
 #include <stdint.h>
-#include "../inc/tm4c123gh6pm.h"
+#include "tm4c123gh6pm.h"
 #include "ST7735.h"
 #include "Print.h"
 #include "Random.h"
@@ -74,19 +74,25 @@ int main(void){
 	ST7735_FillScreen(0);
 	EnableInterrupts();
 	//Welcome Screen
-	ST7735_DrawBitmap(20,90,tetrisTitle,105,80);
-	ST7735_SetCursor(3,10);
+	ST7735_DrawBitmap(10,90,tetrisTitle,105,80);
+	ST7735_SetCursor(2,10);
 	ST7735_SetTextColor(ST7735_CYAN);
 
-	ST7735_OutString("Welcome to Tetris");
+	ST7735_OutString("Welcome to Tetris!");
+	ST7735_SetCursor(3,13);
+	ST7735_OutString("Press the Left");
+	ST7735_SetCursor(3,14);
+	ST7735_OutString("Button to play");
 
-	while((GPIO_PORTD_DATA_R && 0x01) == 0){} 
+	while((GPIO_PORTD_DATA_R && 0x01) == 0){
+	
+	}
 	uint32_t score = 5000;
 	ST7735_FillScreen(0);
 	ST7735_FillRect(0,146,180,1,ST7735_BLUE);
 	ST7735_SetCursor(0,15);
 	ST7735_DrawString(0,15,"Score: ", ST7735_CYAN);
-		
+
 	while(1){
 		/*
 		Game Engine goes here

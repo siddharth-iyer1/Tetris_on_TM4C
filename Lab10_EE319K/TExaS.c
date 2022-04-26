@@ -26,7 +26,7 @@
 
 #include <stdint.h>
 //#include <string.h>
-#include "../inc/tm4c123gh6pm.h"
+#include "tm4c123gh6pm.h"
 #include "TExaS.h"
 #include "PLL.h"
 
