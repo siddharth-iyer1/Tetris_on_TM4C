@@ -63,16 +63,132 @@ void PortD_Init(void){
   GPIO_PORTD_DEN_R |= 0x0E;
 }
 
+
+
+
 int main(void){
 //Code goes here
 	DisableInterrupts();
+		struct tetrisBlock{
+		unsigned short blockData[5][5];
+	};
+	typedef struct tetrisBlock block_t;
+	static block_t allBlocks[16] = {
+	//<0> L block regular
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 2, 0, 0},
+		{0, 0, 1, 1, 0},
+		{0, 0, 0, 0, 0},}}, 
+
+	//<1> T block regular
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 1, 2, 1, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0},}}, 
+	
+	//<2> I block regular
+	{{{0, 0, 1, 0, 0},
+		{0, 0, 2, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0},}}, 
+	
+	//<3> Z block inverted
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 2, 1, 0, 0},
+		{0, 1, 0, 0, 0},
+		{0, 0, 0, 0, 0},}}, 
+	
+	//<4> L Block Rotated Once
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 0, 1, 0},
+		{0, 1, 2, 1, 0},
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},}}, 
+
+	//<5> T Block Rotated Once
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 2, 1, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0},}}, 
+	
+	//<6> I block rotated
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 1, 2, 1, 1},
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},}}, 
+	
+	//<7> Z block rotated
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 1, 2, 0, 0},
+		{0, 0, 1, 1, 0},
+		{0, 0, 0, 0, 0},}}, 
+
+	//<8> L Block Rotated Twice
+	{{{0, 0, 0, 0, 0},
+		{0, 1, 1, 0, 0},
+		{0, 0, 2, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0},}}, 
+	
+	//<9> T Block Rotated Twice
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 1, 2, 1, 0},
+		{0, 0, 0, 0, 0},}}, 
+
+	{{{0, 0, 1, 0, 0},
+		{0, 0, 2, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0},}}, //<10> I block regular (Rotated Twice)
+
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 2, 1, 0, 0},
+		{0, 1, 0, 0, 0},
+		{0, 0, 0, 0, 0},}}, //<11> Z block inverted (Rotated Twice)
+
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 1, 2, 1, 0},
+		{0, 1, 0, 0, 0},
+		{0, 0, 0, 0, 0},}}, //<12> L Block Rotated Thrice
+
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 1, 2, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0},}}, //<13> T Block Rotated Thrice
+
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 1, 2, 1, 1},
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},}}, //<14> I block rotated thrice
+	
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 1, 2, 0, 0},
+		{0, 0, 1, 1, 0},
+		{0, 0, 0, 0, 0},}}, //<15> Z block rotated thrice
+
+	};
+	
 	TExaS_Init(SCOPE);
 	ST7735_InitR(INITR_REDTAB); 
   ADC_Init();         // turn on ADC, set channel to 1
 	PortD_Init();
 	//Initializations
 	ST7735_FillScreen(0);
-	EnableInterrupts();
+
 	//Welcome Screen
 	ST7735_DrawBitmap(10,90,tetrisTitle,105,80);
 	ST7735_SetCursor(2,10);
@@ -84,8 +200,9 @@ int main(void){
 	ST7735_SetCursor(3,14);
 	ST7735_OutString("Button to play");
 
-	while((GPIO_PORTD_DATA_R && 0x01) == 0){
-	
+	while(GPIO_PORTD_DATA_R == 0){
+		ST7735_SetCursor(0,15);
+
 	}
 	uint32_t score = 5000;
 	ST7735_FillScreen(0);
@@ -97,10 +214,27 @@ int main(void){
 		/*
 		Game Engine goes here
 		*/
-
+		EnableInterrupts();
 		ST7735_SetCursor(6,15);
-		LCD_OutDec(1538*ADC_In()/4095+176); //Not actually the score, just me testing ADC
-		ST7735_OutString("    ");
+		
+		for(int x=0; x<5; x++){
+			for(int y=0; y<5; y++){
+				if(allBlocks[0].blockData[y][x] !=0){
+					for(int x1=-3; x1<4; x1++){
+						for(int y1=-3; y1<4; y1++){
+							if(x1==-3 || y1 ==-3 || x1 == 3 || y1 == 3){
+								ST7735_DrawPixel(x*6+x1,y*6+y1,ST7735_MAGENTA);
+							}
+							else{
+								ST7735_DrawPixel(x*6+x1,y*6+y1,ST7735_BLUE);
+							}
+						}
+					}
+					
+
+				}
+			}
+		}
 		//Game Over, restart
 		
 	}
