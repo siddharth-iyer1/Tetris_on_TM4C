@@ -14,6 +14,7 @@
 // includes one blacked out row on the top and bottom sides of the image to prevent smearing when moved 1 pixels to the up or down
 // width=16 x height=10
 void Images_Init(void);
+
 const unsigned short tetrisTitle[] = {
  0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
  0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
@@ -546,7 +547,8 @@ const unsigned short tetrisTitle[] = {
 
 
 
-const unsigned short tetrisBoard[20][10]={
+
+volatile unsigned short tetrisBoard[20][10]={
 {0,0,0,0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0,0,0,0},
