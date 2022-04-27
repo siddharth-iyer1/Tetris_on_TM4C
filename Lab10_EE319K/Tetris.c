@@ -21,6 +21,8 @@ void Timer1A_Handler(void){ // can be used to perform tasks in background
    // execute user task
 }
 
+	uint8_t xpos = 10;
+	uint8_t ypos = 9;
 typedef enum {English, Spanish, Portuguese, French} Language_t;
 Language_t myLanguage=English;
 typedef enum {HELLO, GOODBYE, LANGUAGE} phrase_t;
@@ -41,35 +43,7 @@ const char *Phrases[3][4]={
   {Goodbye_English,Goodbye_Spanish,Goodbye_Portuguese,Goodbye_French},
   {Language_English,Language_Spanish,Language_Portuguese,Language_French}
 };
-
-void SysTick_Init(uint32_t period){
-	NVIC_ST_CTRL_R = 0;
-	NVIC_ST_RELOAD_R = period-1;
-	NVIC_ST_CURRENT_R =0;
-	NVIC_SYS_PRI3_R = 0x20000000 | ((0x00FFFFFF) & (NVIC_SYS_PRI3_R)); // set priority to 1
-	NVIC_ST_CTRL_R = 0x0007;
-}
-
-
-void SysTick_Handler(void){
-  //Handle things
-}
-
-void PortD_Init(void){
-  volatile int delay;
-  SYSCTL_RCGCGPIO_R |= 0x08;
-  delay = SYSCTL_RCGCGPIO_R;
-  GPIO_PORTD_DIR_R &= 0x00;
-  GPIO_PORTD_DEN_R |= 0x0E;
-}
-
-
-
-
-int main(void){
-//Code goes here
-	DisableInterrupts();
-		struct tetrisBlock{
+	struct tetrisBlock{
 		unsigned short blockData[5][5];
 	};
 	typedef struct tetrisBlock block_t;
@@ -182,10 +156,65 @@ int main(void){
 
 	};
 	
-	TExaS_Init(SCOPE);
+void SysTick_Init(uint32_t period){
+	NVIC_ST_CTRL_R = 0;
+	NVIC_ST_RELOAD_R = period-1;
+	NVIC_ST_CURRENT_R =0;
+	NVIC_SYS_PRI3_R = 0x20000000 | ((0x00FFFFFF) & (NVIC_SYS_PRI3_R)); // set priority to 1
+	NVIC_ST_CTRL_R = 0x0007;
+}
+
+void drawSquare(int x, int y){
+	for(int x1=-3; x1<4; x1++){
+		for(int y1=-3; y1<4; y1++){
+			if(x1==-3 || y1 ==-3 || x1 == 3 || y1 == 3){
+				ST7735_DrawPixel((xpos+x)*6+x1,(ypos+y)*6+y1,ST7735_MAGENTA);
+			}
+			else{
+				ST7735_DrawPixel((xpos+x)*6+x1,(ypos+y)*6+y1,ST7735_BLUE);
+			}
+		}
+	}
+}
+
+void SysTick_Handler(void){
+	if(ypos<20){
+		for(int x=0; x<5; x++){
+			for(int y=0; y<5; y++){
+				if(allBlocks[3].blockData[y][x] !=0){
+					for(int x1=-3; x1<4; x1++){
+						for(int y1=-3; y1<4; y1++){
+							if(x1==-3 || y1 ==-3 || x1 == 3 || y1 == 3){
+								ST7735_DrawPixel((xpos+x)*6+x1,(ypos+y)*6+y1,ST7735_BLACK);
+							}
+							else{
+								ST7735_DrawPixel((xpos+x)*6+x1,(ypos+y)*6+y1,ST7735_BLACK);
+							}
+						}
+					}
+				}
+			}
+		}
+		ypos++;
+	}
+}
+
+void PortD_Init(void){
+  volatile int delay;
+  SYSCTL_RCGCGPIO_R |= 0x08;
+  delay = SYSCTL_RCGCGPIO_R;
+  GPIO_PORTD_DIR_R &= 0x00;
+  GPIO_PORTD_DEN_R |= 0x0E;
+}
+
+int main(void){
+//Code goes here
+	DisableInterrupts();
+
 	ST7735_InitR(INITR_REDTAB); 
   ADC_Init();         // turn on ADC, set channel to 1
 	PortD_Init();
+	SysTick_Init(80000000);
 	//Initializations
 	ST7735_FillScreen(0);
 
@@ -209,6 +238,7 @@ int main(void){
 	ST7735_FillRect(0,146,180,1,ST7735_BLUE);
 	ST7735_SetCursor(0,15);
 	ST7735_DrawString(0,15,"Score: ", ST7735_CYAN);
+	
 
 	while(1){
 		/*
@@ -217,24 +247,15 @@ int main(void){
 		EnableInterrupts();
 		ST7735_SetCursor(6,15);
 		
+		DisableInterrupts();
 		for(int x=0; x<5; x++){
 			for(int y=0; y<5; y++){
-				if(allBlocks[0].blockData[y][x] !=0){
-					for(int x1=-3; x1<4; x1++){
-						for(int y1=-3; y1<4; y1++){
-							if(x1==-3 || y1 ==-3 || x1 == 3 || y1 == 3){
-								ST7735_DrawPixel(x*6+x1,y*6+y1,ST7735_MAGENTA);
-							}
-							else{
-								ST7735_DrawPixel(x*6+x1,y*6+y1,ST7735_BLUE);
-							}
-						}
-					}
-					
-
+				if(allBlocks[3].blockData[y][x] !=0){
+					drawSquare(x,y);
 				}
 			}
 		}
+		EnableInterrupts();
 		//Game Over, restart
 		
 	}
