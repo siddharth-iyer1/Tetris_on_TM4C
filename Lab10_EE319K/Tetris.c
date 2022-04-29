@@ -15,12 +15,11 @@
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 void Delay100ms(uint32_t count); // time delay in 0.1 seconds
-
+int ADC_Position(uint32_t output);
 void Timer1A_Handler(void){ // can be used to perform tasks in background
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;// acknowledge TIMER1A timeout
    // execute user task
 }
-
 
 
 
@@ -46,6 +45,10 @@ const char *Phrases[3][4]={
 };
 struct tetrisBlock{
 	unsigned short blockData[5][5];
+	signed short bottomX;
+	signed short bottomY;
+	signed short width;
+	signed short height;
 };
 typedef struct tetrisBlock block_t;
 static block_t allBlocks[16] = {
@@ -54,7 +57,7 @@ static block_t allBlocks[16] = {
 		{0, 0, 1, 0, 0},
 		{0, 0, 2, 0, 0},
 		{0, 0, 1, 1, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 3,2,2,3},
 
 	//<1> T block regular
 	{{{0, 0, 0, 0, 0},
@@ -171,8 +174,8 @@ void PortD_Init(void){
 }
 
 
-volatile uint8_t xpos=5;
-volatile uint8_t ypos=5;
+volatile int8_t xpos=7;
+volatile int8_t ypos=0;
 
 
 void SysTick_Init(uint32_t period){
@@ -186,33 +189,82 @@ void SysTick_Init(uint32_t period){
 
 
 void drawSquare(int x, int y, int color, int erase){
-	for(int x1=-3; x1<4; x1++){
-		for(int y1=-3; y1<4; y1++){
-			if((x1==-3 || y1 ==-3 || x1 == 3 || y1 == 3) && (erase!=1)){
-				ST7735_DrawPixel(x*6+x1,y*6+y1,ST7735_MAGENTA);
+	for(int x1=0; x1<11; x1++){
+		for(int y1=0; y1<11; y1++){
+			if((x1 == 0 || y1 == 0 || x1 == 10 || y1 == 10) && (erase==0)){
+				ST7735_DrawPixel(x*10+x1+10,y*10+y1,ST7735_MAGENTA);
 			}
 			else{
-				ST7735_DrawPixel(x*6+x1,y*6+y1,color);
+				ST7735_DrawPixel(x*10+x1+10,y*10+y1,color);
 			}
 		}
 	}
 }
-
+uint32_t n;
+uint8_t status;
 void SysTick_Handler(void){
-	if(ypos<20){
-		
-		for(int x=-3; x<4; x++){
-			for(int y=-3; y<4; y++){
-				if(tetrisBoard[ypos+y][xpos+x] !=0){
-					tetrisBoard[ypos+y][xpos+x] = 0,0;
-					drawSquare(xpos+x,ypos+y,ST7735_BLACK, 1);
+	if(ypos<12){
+		for(int y = 0; y<allBlocks[0].height+1; y++)
+		{
+			for(int x = 0; x<allBlocks[0].width+1; x++)
+			{
+				if(tetrisBoard[ypos-y][xpos+x]!=0){
+					tetrisBoard[ypos-y][xpos+x] = 0;
+					drawSquare(xpos+x,ypos-y,ST7735_BLACK,1);
 				}
 			}
 		}
 		ypos++;
+		n = ADC_In();
+		n =1538 * n/4095+176;
+		uint32_t b = ADC_Position(n);
+		
+		xpos = b;
 	}
+
 }
 
+int ADC_Position(uint32_t output){
+		if(output > 100 && output < 350){
+			return 0;
+		}
+	
+		else if(output > 351 && output < 500){
+			return 1;
+		}
+		
+		else if(output >= 500 && output < 650){
+			return 2;
+		}
+	
+		else if(output >= 650 && output < 800){
+			return 3;	
+		}
+	
+		else if(output >= 800 && output < 950){
+			return 4;
+		}
+	
+		else if(output >= 950 && output < 1100){
+			return 5;
+		}
+	
+		else if(output >= 1100 && output < 1250){
+			return 6;
+		}
+	
+		else if(output >= 1250 && output < 1400){
+			return 7;		  
+		}               
+										
+		else if(output >= 1400 && output < 1550){
+			return 8;		  
+		}               
+										
+		else if(output >= 1550 && output < 2000){
+			return 9;	
+		}
+}
 int main(void){
 //Code goes here
 	DisableInterrupts();
@@ -237,9 +289,9 @@ int main(void){
 
 	while(GPIO_PORTD_DATA_R == 0){
 		ST7735_SetCursor(0,15);
-
+		LCD_OutDec(5);
 	}
-	uint32_t score = 5000;
+	
 	ST7735_FillScreen(0);
 	ST7735_FillRect(0,146,180,1,ST7735_BLUE);
 	ST7735_SetCursor(0,15);
@@ -251,15 +303,15 @@ int main(void){
 		Game Engine goes here
 		*/
 		EnableInterrupts();
-		ST7735_SetCursor(6,15);
-
+		
+		
 		DisableInterrupts();
 		
-		
-		for(int x=0; x<5; x++){
-			for(int y=0; y<5; y++){
-				if(allBlocks[3].blockData[y][x] !=0){
-					tetrisBoard[ypos+x-3][xpos+y-3] = allBlocks[3].blockData[y][x];
+		for(signed int x=0; x<5; x++){
+			for(signed int y=0; y<5; y++){
+				tetrisBoard[ypos][xpos] = allBlocks[0].blockData[allBlocks[0].bottomX][allBlocks[0].bottomY];
+				if(allBlocks[0].blockData[y][x] !=0 && allBlocks[0].blockData[y][x] != allBlocks[0].blockData[allBlocks[0].bottomY][allBlocks[0].bottomX]){
+					tetrisBoard[ypos+(y-allBlocks[0].bottomX)][xpos+(x-allBlocks[0].bottomY)] = allBlocks[0].blockData[y][x];
 				}
 			}
 		}
@@ -270,8 +322,24 @@ int main(void){
 				if(tetrisBoard[j][i] !=0){
 					drawSquare(i,j,ST7735_BLUE, 0);
 				}
+
 			}
 		}
+		
+		for(int i=0; i<10; i++){
+			for(int j=5; j<13; j++){
+				ST7735_SetCursor(i,j-4);
+				LCD_OutDec(tetrisBoard[j][i]);
+			}
+		}
+		
+		int8_t a = xpos;
+		int8_t b = ypos;
+		ST7735_SetCursor(9,15);
+		LCD_OutDec(a);
+		ST7735_SetCursor(10,15);
+		LCD_OutDec(b);
+
 		//Game Over, restart
 		//main();
 		

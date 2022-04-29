@@ -142,6 +142,8 @@ enum initRFlags{
 #define ST7735_YELLOW  0x07FF
 #define ST7735_WHITE   0xFFFF
 
+void Delay1ms(uint32_t n);
+
 //------------ST7735_InitB------------
 // Initialization for ST7735B screens.
 // Input: none
