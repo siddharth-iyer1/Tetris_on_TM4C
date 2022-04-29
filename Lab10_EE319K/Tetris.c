@@ -64,56 +64,56 @@ static block_t allBlocks[16] = {
 		{0, 0, 0, 0, 0},
 		{0, 1, 2, 1, 0},
 		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 3,2,3,2}, 
 	
 	//<2> I block regular
 	{{{0, 0, 1, 0, 0},
 		{0, 0, 2, 0, 0},
 		{0, 0, 1, 0, 0},
 		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 3,2,1,4}, 
 	
 	//<3> Z block inverted
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 1, 0, 0},
 		{0, 2, 1, 0, 0},
 		{0, 1, 0, 0, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 3,1,2,3}, 
 	
 	//<4> L Block Rotated Once
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 1, 0},
 		{0, 1, 2, 1, 0},
 		{0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 2,1,3,2}, 
 
 	//<5> T Block Rotated Once
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 1, 0, 0},
 		{0, 0, 2, 1, 0},
 		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 3,2,2,3}, 
 	
 	//<6> I block rotated
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
 		{0, 1, 2, 1, 1},
 		{0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 2,1,4,1}, 
 	
 	//<7> Z block rotated
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
 		{0, 1, 2, 0, 0},
 		{0, 0, 1, 1, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 3,2,3,2}, 
 
 	//<8> L Block Rotated Twice
 	{{{0, 0, 0, 0, 0},
 		{0, 1, 1, 0, 0},
 		{0, 0, 2, 0, 0},
 		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 3,2,2,3}, 
 	
 	//<9> T Block Rotated Twice
 	{{{0, 0, 0, 0, 0},
@@ -201,15 +201,19 @@ void drawSquare(int x, int y, int color, int erase){
 	}
 }
 uint32_t n;
-uint8_t status;
+uint8_t status=0;
+
+uint8_t BLOCK;
 void SysTick_Handler(void){
-	if(ypos<12){
+	if(ypos<13){
+		status=1;
 		for(int y = 0; y<allBlocks[0].height+1; y++)
 		{
 			for(int x = 0; x<allBlocks[0].width+1; x++)
 			{
 				if(tetrisBoard[ypos-y][xpos+x]!=0){
 					tetrisBoard[ypos-y][xpos+x] = 0;
+
 					drawSquare(xpos+x,ypos-y,ST7735_BLACK,1);
 				}
 			}
@@ -218,9 +222,13 @@ void SysTick_Handler(void){
 		n = ADC_In();
 		n =1538 * n/4095+176;
 		uint32_t b = ADC_Position(n);
-		
 		xpos = b;
 	}
+	else if(ypos>=13){
+		BLOCK = ((Random32()%60)/4)%8; // returns a random number from 0 to 59
+		ypos=0;
+	}
+
 
 }
 
@@ -265,6 +273,8 @@ int ADC_Position(uint32_t output){
 			return 9;	
 		}
 }
+
+
 int main(void){
 //Code goes here
 	DisableInterrupts();
@@ -273,6 +283,7 @@ int main(void){
   ADC_Init();         // turn on ADC, set channel to 1
 	PortD_Init();
 	SysTick_Init(80000000);
+	Random_Init(55);
 	//Initializations
 	ST7735_FillScreen(0);
 
@@ -287,16 +298,14 @@ int main(void){
 	ST7735_SetCursor(3,14);
 	ST7735_OutString("Button to play");
 
-	while(GPIO_PORTD_DATA_R == 0){
-		ST7735_SetCursor(0,15);
-		LCD_OutDec(5);
-	}
+	while(GPIO_PORTD_DATA_R == 0){}
 	
 	ST7735_FillScreen(0);
 	ST7735_FillRect(0,146,180,1,ST7735_BLUE);
 	ST7735_SetCursor(0,15);
 	ST7735_DrawString(0,15,"Score: ", ST7735_CYAN);
 	
+	BLOCK = (Random32()%60)/4; // returns a random number from 0 to 59
 
 	while(1){
 		/*
@@ -304,14 +313,16 @@ int main(void){
 		*/
 		EnableInterrupts();
 		
-		
 		DisableInterrupts();
+		if(status==1){
 		
+		}
 		for(signed int x=0; x<5; x++){
 			for(signed int y=0; y<5; y++){
-				tetrisBoard[ypos][xpos] = allBlocks[0].blockData[allBlocks[0].bottomX][allBlocks[0].bottomY];
-				if(allBlocks[0].blockData[y][x] !=0 && allBlocks[0].blockData[y][x] != allBlocks[0].blockData[allBlocks[0].bottomY][allBlocks[0].bottomX]){
-					tetrisBoard[ypos+(y-allBlocks[0].bottomX)][xpos+(x-allBlocks[0].bottomY)] = allBlocks[0].blockData[y][x];
+				tetrisBoard[ypos][xpos] = allBlocks[BLOCK].blockData[allBlocks[BLOCK].bottomX][allBlocks[BLOCK].bottomY];
+				if(allBlocks[BLOCK].blockData[y][x] !=0 && 
+					allBlocks[BLOCK].blockData[y][x] != allBlocks[BLOCK].blockData[allBlocks[BLOCK].bottomY][allBlocks[BLOCK].bottomX]){
+					tetrisBoard[ypos+(y-allBlocks[BLOCK].bottomX)][xpos+(x-allBlocks[BLOCK].bottomY)] = allBlocks[BLOCK].blockData[y][x];
 				}
 			}
 		}
@@ -326,12 +337,12 @@ int main(void){
 			}
 		}
 		
-		for(int i=0; i<10; i++){
-			for(int j=5; j<13; j++){
-				ST7735_SetCursor(i,j-4);
-				LCD_OutDec(tetrisBoard[j][i]);
-			}
-		}
+//		for(int i=0; i<10; i++){
+//			for(int j=5; j<13; j++){
+//				ST7735_SetCursor(i,j-4);
+//				LCD_OutDec(tetrisBoard[j][i]);
+//			}
+//		}
 		
 		int8_t a = xpos;
 		int8_t b = ypos;
