@@ -21,6 +21,11 @@ void Timer1A_Handler(void){ // can be used to perform tasks in background
    // execute user task
 }
 
+void GPIOPortF_Handler(void){
+	if((GPIO_PORTF_RIS_R & 0x01) == 0x01){
+		playsound(clearrow);									// Plays row clear sound. We can set the PortF Handler
+	}																				// when we detect a row clear
+}
 
 
 typedef enum {English, Spanish, Portuguese, French} Language_t;
@@ -47,116 +52,168 @@ struct tetrisBlock{
 	unsigned short blockData[5][5];
 	signed short bottomX;
 	signed short bottomY;
-	signed short width;
-	signed short height;
+	signed short offsetX[3]; //These offset values are the positions of the blocks relative to the set "center" position.
+	signed short offsetY[3]; //3 in each array because total there are 4 squares that make up a Tetris block. (bottomX/Y is 1 square)
 };
 typedef struct tetrisBlock block_t;
 static block_t allBlocks[16] = {
 	//<0> L block regular
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 1, 0, 0},
-		{0, 0, 2, 0, 0},
-		{0, 0, 1, 1, 0},
-		{0, 0, 0, 0, 0},}, 3,2,2,3},
+		{0, 0, 1, 0, 0},
+		{0, 0, 2, 1, 0},
+		{0, 0, 0, 0, 0},}, 3,2,
+	{0,0,1},
+	{-1,-2,0}},
 
 	//<1> T block regular
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
-		{0, 1, 2, 1, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}, 3,2,3,2}, 
+		{0, 1, 1, 1, 0},
+		{0, 0, 2, 0, 0},
+		{0, 0, 0, 0, 0},}, 3,2,
+	{-1,0,1},
+	{-1,-1,-1}
+	}, 
 	
 	//<2> I block regular
 	{{{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
 		{0, 0, 2, 0, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}, 3,2,1,4}, 
+		{0, 0, 0, 0, 0},}, 3,2,
+	{0,0,0},
+	{-1,-2,-3}
+	}, 
 	
 	//<3> Z block inverted
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 1, 0, 0},
-		{0, 2, 1, 0, 0},
-		{0, 1, 0, 0, 0},
-		{0, 0, 0, 0, 0},}, 3,1,2,3}, 
+		{0, 1, 1, 0, 0},
+		{0, 2, 0, 0, 0},
+		{0, 0, 0, 0, 0},}, 3,1,
+	{0,1,1},
+	{-1,-1,-2}
+	}, 
 	
 	//<4> L Block Rotated Once
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 1, 0},
-		{0, 1, 2, 1, 0},
+		{0, 2, 1, 1, 0},
 		{0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0},}, 2,1,3,2}, 
+		{0, 0, 0, 0, 0},}, 2,1,
+	{1,2,2},
+	{0,0,-1}
+	}, 
 
 	//<5> T Block Rotated Once
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 1, 0, 0},
-		{0, 0, 2, 1, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}, 3,2,2,3}, 
+		{0, 0, 1, 1, 0},
+		{0, 0, 2, 0, 0},
+		{0, 0, 0, 0, 0},}, 3,2,
+	{0,0,1},
+	{-1,-2,-1}
+	}, 
 	
 	//<6> I block rotated
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
-		{0, 1, 2, 1, 1},
+		{0, 2, 1, 1, 1},
 		{0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0},}, 2,1,4,1}, 
+		{0, 0, 0, 0, 0},}, 2,1,
+	{1,2,3},
+	{0,0,0}
+	}, 
 	
 	//<7> Z block rotated
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
-		{0, 1, 2, 0, 0},
+		{0, 2, 1, 0, 0},
 		{0, 0, 1, 1, 0},
-		{0, 0, 0, 0, 0},}, 3,2,3,2}, 
+		{0, 0, 0, 0, 0},}, 2,1,
+	{1,1,2},
+	{0,1,1}
+	}, 
 
 	//<8> L Block Rotated Twice
 	{{{0, 0, 0, 0, 0},
 		{0, 1, 1, 0, 0},
-		{0, 0, 2, 0, 0},
 		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}, 3,2,2,3}, 
+		{0, 0, 2, 0, 0},
+		{0, 0, 0, 0, 0},}, 3,2,
+	{-1,0,0},
+	{-2,-2,-1}
+	}, 
 	
 	//<9> T Block Rotated Twice
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
 		{0, 0, 1, 0, 0},
 		{0, 1, 2, 1, 0},
-		{0, 0, 0, 0, 0},}}, 
+		{0, 0, 0, 0, 0},}, 3,2,
+	{-1,0,1},
+	{0,-1,0}
+	}, 
 
+	//<10> I block regular (Rotated Twice)
 	{{{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
 		{0, 0, 2, 0, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}}, //<10> I block regular (Rotated Twice)
+		{0, 0, 0, 0, 0},},3,2,
+	{0,0,0},
+	{-1,-2,-3}
+	}, 
 
+	//<11> Z block inverted (Rotated Twice)
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 1, 0, 0},
-		{0, 2, 1, 0, 0},
-		{0, 1, 0, 0, 0},
-		{0, 0, 0, 0, 0},}}, //<11> Z block inverted (Rotated Twice)
+		{0, 1, 1, 0, 0},
+		{0, 2, 0, 0, 0},
+		{0, 0, 0, 0, 0},}, 3,1,
+	{0,1,1},
+	{-1,-1,-2}
+	}, 
 
-	{{{0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0},
-		{0, 1, 2, 1, 0},
-		{0, 1, 0, 0, 0},
-		{0, 0, 0, 0, 0},}}, //<12> L Block Rotated Thrice
-
-	{{{0, 0, 0, 0, 0},
-		{0, 0, 1, 0, 0},
-		{0, 1, 2, 0, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0},}}, //<13> T Block Rotated Thrice
-
+	//<12> L Block Rotated Thrice
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
-		{0, 1, 2, 1, 1},
+		{0, 1, 1, 1, 0},
+		{0, 2, 0, 0, 0},
+		{0, 0, 0, 0, 0},}, 3,1,
+	{0,1,2},
+	{-1,-1,-1}
+	}, 
+
+	//<13> T Block Rotated Thrice
+	{{{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 1, 1, 0, 0},
+		{0, 0, 2, 0, 0},
+		{0, 0, 0, 0, 0},}, 3,2,
+	{-1,0,0},
+	{-1,-1,-2}}, 
+
+	//<14> I block rotated thrice
+	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0},}}, //<14> I block rotated thrice
+		{0, 2, 1, 1, 1},
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},}, 2,1,
+	{1,2,3},
+	{0,0,0},
+	}, 
 	
+	//<15> Z block rotated thrice
 	{{{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
-		{0, 1, 2, 0, 0},
+		{0, 2, 1, 0, 0},
 		{0, 0, 1, 1, 0},
-		{0, 0, 0, 0, 0},}}, //<15> Z block rotated thrice
+		{0, 0, 0, 0, 0},}, 2,1,
+	{1,1,2},
+	{0,1,1}
+	}, 
 
 	};
 	
@@ -175,7 +232,7 @@ void PortD_Init(void){
 
 
 volatile int8_t xpos=7;
-volatile int8_t ypos=0;
+volatile int8_t ypos=4;
 
 
 void SysTick_Init(uint32_t period){
@@ -189,9 +246,9 @@ void SysTick_Init(uint32_t period){
 
 
 void drawSquare(int x, int y, int color, int erase){
-	for(int x1=0; x1<11; x1++){
-		for(int y1=0; y1<11; y1++){
-			if((x1 == 0 || y1 == 0 || x1 == 10 || y1 == 10) && (erase==0)){
+	for(int x1=0; x1<10; x1++){
+		for(int y1=0; y1<10; y1++){
+			if((x1 == 0 || y1 == 0 || x1 == 9 || y1 == 9) && (erase==0)){ //Each square will be 10x10. 0 and 9 coords = border
 				ST7735_DrawPixel(x*10+x1+10,y*10+y1,ST7735_MAGENTA);
 			}
 			else{
@@ -205,31 +262,23 @@ uint8_t status=0;
 
 uint8_t BLOCK;
 void SysTick_Handler(void){
-	if(ypos<13){
-		status=1;
-		for(int y = 0; y<allBlocks[0].height+1; y++)
-		{
-			for(int x = 0; x<allBlocks[0].width+1; x++)
-			{
-				if(tetrisBoard[ypos-y][xpos+x]!=0){
-					tetrisBoard[ypos-y][xpos+x] = 0;
-
-					drawSquare(xpos+x,ypos-y,ST7735_BLACK,1);
-				}
-			}
+	if(ypos<13){ //13 will be touching ground
+		tetrisBoard[ypos][xpos] = 0;
+		for(signed int x=0; x<3; x++){
+			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 0; //Erases current block position
 		}
-		ypos++;
-		n = ADC_In();
+		ypos++; //Increment y position (goes down).
+		//We do not need to draw squares as it will get drawn in main program.
+		
+		n = ADC_In(); 
 		n =1538 * n/4095+176;
 		uint32_t b = ADC_Position(n);
-		xpos = b;
+		xpos = b; // X position changes based on slidepot, most likely will put OUTSIDE of SysTick_Handler()
 	}
-	else if(ypos>=13){
-		BLOCK = ((Random32()%60)/4)%8; // returns a random number from 0 to 59
-		ypos=0;
+	else if(ypos>=13){ //If it touches ground
+		ypos = 4; //Reset Y position
+		BLOCK++; // Change block, will use random function.
 	}
-
-
 }
 
 int ADC_Position(uint32_t output){
@@ -298,44 +347,46 @@ int main(void){
 	ST7735_SetCursor(3,14);
 	ST7735_OutString("Button to play");
 
-	while(GPIO_PORTD_DATA_R == 0){}
+	while(GPIO_PORTD_DATA_R == 0){} //Welcome Screen ended, time to play
 	
+		//Sets up playing screen
+		
 	ST7735_FillScreen(0);
 	ST7735_FillRect(0,146,180,1,ST7735_BLUE);
 	ST7735_SetCursor(0,15);
 	ST7735_DrawString(0,15,"Score: ", ST7735_CYAN);
 	
-	BLOCK = (Random32()%60)/4; // returns a random number from 0 to 59
+	BLOCK = 0;//(Random32()%60)/4; // returns a random number from 0 to 59
 
-	while(1){
-		/*
-		Game Engine goes here
-		*/
+	while(1){ //Tetris Game Starts
 		EnableInterrupts();
 		
-		DisableInterrupts();
-		if(status==1){
+		DisableInterrupts(); //Do not want interrupts during refreshing/updating of the LCD screen & Tetris Array
+		if(status==1){ //Not sure if needed at current moment.
 		
 		}
-		for(signed int x=0; x<5; x++){
-			for(signed int y=0; y<5; y++){
-				tetrisBoard[ypos][xpos] = allBlocks[BLOCK].blockData[allBlocks[BLOCK].bottomX][allBlocks[BLOCK].bottomY];
-				if(allBlocks[BLOCK].blockData[y][x] !=0 && 
-					allBlocks[BLOCK].blockData[y][x] != allBlocks[BLOCK].blockData[allBlocks[BLOCK].bottomY][allBlocks[BLOCK].bottomX]){
-					tetrisBoard[ypos+(y-allBlocks[BLOCK].bottomX)][xpos+(x-allBlocks[BLOCK].bottomY)] = allBlocks[BLOCK].blockData[y][x];
-				}
-			}
+		for(signed int x=0; x<3; x++){ //This function puts the current block data into the Board array
+			tetrisBoard[ypos][xpos] = allBlocks[BLOCK].blockData[allBlocks[BLOCK].bottomX][allBlocks[BLOCK].bottomY];
+			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1;
 		}
-		
 
-		for(int i=0; i<10; i++){
-			for(int j=0; j<20; j++){
-				if(tetrisBoard[j][i] !=0){
+
+		
+		for(int i=0; i<10; i++){ //Displays board array onto screen.
+			for(int j=0; j<14; j++){
+				if(tetrisBoard[j][i] != 0){
 					drawSquare(i,j,ST7735_BLUE, 0);
 				}
+				else{
+					drawSquare(i,j,ST7735_BLACK, 1);
+				}
+					ST7735_SetCursor(i,j);
+					//LCD_OutDec(tetrisBoard[j][i]);
 
 			}
 		}
+		
+		EnableInterrupts();
 		
 //		for(int i=0; i<10; i++){
 //			for(int j=5; j<13; j++){
@@ -344,17 +395,12 @@ int main(void){
 //			}
 //		}
 		
-		int8_t a = xpos;
-		int8_t b = ypos;
-		ST7735_SetCursor(9,15);
-		LCD_OutDec(a);
-		ST7735_SetCursor(10,15);
-		LCD_OutDec(b);
 
 		//Game Over, restart
 		//main();
 		
 	}
 }
+
 
 
