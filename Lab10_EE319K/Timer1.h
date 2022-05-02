@@ -29,6 +29,7 @@
 // Inputs:  period in units (1/clockfreq)
 //          priority is 0 (high) to 7 (low)
 // Outputs: none
-void Timer1_Init(uint32_t period, uint32_t priority);
+void Timer1_Init(void(*task)(void), uint32_t period);
+void Timer1_Stop(void);
 
 #endif // __TIMER2INTS_H__

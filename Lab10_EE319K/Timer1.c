@@ -49,3 +49,6 @@ volatile int delay;
   TIMER1_CTL_R = 0x00000001;    // 10) enable TIMER1A
 }
 
+void Timer1_Stop() {
+	TIMER1_CTL_R = 0x00000000;
+}
