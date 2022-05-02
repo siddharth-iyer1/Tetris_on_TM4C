@@ -222,7 +222,9 @@ static block_t allBlocks[16] = {
 
 
 
-void PortD_Init(void){
+
+uint8_t BLOCK;
+	void PortD_Init(void){
   volatile int delay;
   SYSCTL_RCGCGPIO_R |= 0x08;
   delay = SYSCTL_RCGCGPIO_R;
@@ -231,8 +233,10 @@ void PortD_Init(void){
 }
 
 
-volatile int8_t xpos=7;
+volatile int8_t xpos=3;
 volatile int8_t ypos=4;
+volatile int8_t wantedXpos=3;
+volatile int8_t wantedYpos=4;
 
 
 void SysTick_Init(uint32_t period){
@@ -244,6 +248,20 @@ void SysTick_Init(uint32_t period){
 }
 
 
+int collisionCheck(){
+	int check = 0;
+	
+	for(int i = 0; i<3; i++){
+		if(tetrisBoard[wantedYpos][wantedXpos] == 1){
+			check = 1;
+		}
+		else if(tetrisBoard[wantedYpos+(allBlocks[BLOCK].offsetY[i])][wantedXpos+(allBlocks[BLOCK].offsetX[i])]==1){
+			check = 1;
+		}
+	}
+	
+	return check;
+}
 
 void drawSquare(int x, int y, int color, int erase){
 	for(int x1=0; x1<10; x1++){
@@ -260,23 +278,44 @@ void drawSquare(int x, int y, int color, int erase){
 uint32_t n;
 uint8_t status=0;
 
-uint8_t BLOCK;
 void SysTick_Handler(void){
 	if(ypos<13){ //13 will be touching ground
-		tetrisBoard[ypos][xpos] = 0;
-		for(signed int x=0; x<3; x++){
-			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 0; //Erases current block position
-		}
-		ypos++; //Increment y position (goes down).
-		//We do not need to draw squares as it will get drawn in main program.
 		
+		wantedYpos++;
 		n = ADC_In(); 
 		n =1538 * n/4095+176;
 		uint32_t b = ADC_Position(n);
-		xpos = b; // X position changes based on slidepot, most likely will put OUTSIDE of SysTick_Handler()
+		wantedXpos = b;
+		for(signed int x=0; x<3; x++){
+			tetrisBoard[ypos][xpos] = 0;
+			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 0; //Erases current block position
+		}
+		
+
+		if(collisionCheck() != 1){
+			ypos++;
+			xpos = wantedXpos;
+			tetrisBoard[ypos][xpos] = 1;
+			for(signed int i=0; i<3; i++){
+				tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[i])][xpos+(allBlocks[BLOCK].offsetX[i])] = 1; 
+			}
+		}
+		
+		else{
+
+			tetrisBoard[ypos][xpos] = 1;
+			for(signed int x=0; x<3; x++){
+				tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1; 
+			}
+			ypos = 4; //Reset Y position
+			wantedYpos = 4;
+			BLOCK++; // Change block, will use random function.
+			
+		}
 	}
 	else if(ypos>=13){ //If it touches ground
 		ypos = 4; //Reset Y position
+		wantedYpos = 4;
 		BLOCK++; // Change block, will use random function.
 	}
 }
@@ -331,7 +370,7 @@ int main(void){
 	ST7735_InitR(INITR_REDTAB); 
   ADC_Init();         // turn on ADC, set channel to 1
 	PortD_Init();
-	SysTick_Init(80000000);
+	SysTick_Init(80000000/30);
 	Random_Init(55);
 	//Initializations
 	ST7735_FillScreen(0);
@@ -362,13 +401,10 @@ int main(void){
 		EnableInterrupts();
 		
 		DisableInterrupts(); //Do not want interrupts during refreshing/updating of the LCD screen & Tetris Array
-		if(status==1){ //Not sure if needed at current moment.
-		
-		}
-		for(signed int x=0; x<3; x++){ //This function puts the current block data into the Board array
-			tetrisBoard[ypos][xpos] = allBlocks[BLOCK].blockData[allBlocks[BLOCK].bottomX][allBlocks[BLOCK].bottomY];
-			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1;
-		}
+//		for(signed int x=0; x<3; x++){ //This function puts the current block data into the Board array
+//			tetrisBoard[ypos][xpos] = allBlocks[BLOCK].blockData[allBlocks[BLOCK].bottomX][allBlocks[BLOCK].bottomY];
+//			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1;
+//		}
 
 
 		
@@ -380,9 +416,8 @@ int main(void){
 				else{
 					drawSquare(i,j,ST7735_BLACK, 1);
 				}
-					ST7735_SetCursor(i,j);
+					//ST7735_SetCursor(i,j);
 					//LCD_OutDec(tetrisBoard[j][i]);
-
 			}
 		}
 		
@@ -401,6 +436,7 @@ int main(void){
 		
 	}
 }
+
 
 
 

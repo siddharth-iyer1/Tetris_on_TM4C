@@ -141,8 +141,11 @@ Section Cross References
     tetris.o(i.GPIOPortF_Handler) refers to sound.o(i.playsound) for playsound
     tetris.o(i.SysTick_Handler) refers to adc.o(i.ADC_In) for ADC_In
     tetris.o(i.SysTick_Handler) refers to tetris.o(i.ADC_Position) for ADC_Position
+    tetris.o(i.SysTick_Handler) refers to tetris.o(i.collisionCheck) for collisionCheck
     tetris.o(i.SysTick_Handler) refers to tetris.o(.data) for ypos
     tetris.o(i.SysTick_Handler) refers to tetris.o(.bss) for tetrisBoard
+    tetris.o(i.collisionCheck) refers to tetris.o(.data) for wantedYpos
+    tetris.o(i.collisionCheck) refers to tetris.o(.bss) for tetrisBoard
     tetris.o(i.drawSquare) refers to st7735.o(i.ST7735_DrawPixel) for ST7735_DrawPixel
     tetris.o(i.main) refers to startup.o(.text) for DisableInterrupts
     tetris.o(i.main) refers to st7735.o(i.ST7735_InitR) for ST7735_InitR
@@ -351,8 +354,8 @@ Image Symbol Table
     ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
-    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
+    ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
@@ -360,23 +363,23 @@ Image Symbol Table
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_w.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
@@ -472,31 +475,32 @@ Image Symbol Table
     i.ST7735_SetCursor                       0x00000be4   Section        0  st7735.o(i.ST7735_SetCursor)
     i.ST7735_SetTextColor                    0x00000c04   Section        0  st7735.o(i.ST7735_SetTextColor)
     i.SysTick_Handler                        0x00000c10   Section        0  tetris.o(i.SysTick_Handler)
-    i.SysTick_Init                           0x00000cfc   Section        0  tetris.o(i.SysTick_Init)
-    i.Timer1A_Handler                        0x00000d2c   Section        0  tetris.o(i.Timer1A_Handler)
-    i.Timer1_Init                            0x00000d38   Section        0  timer1.o(i.Timer1_Init)
-    i.Timer1_Stop                            0x00000d98   Section        0  timer1.o(i.Timer1_Stop)
-    i.Timer5A_Handler                        0x00000da4   Section        0  texas.o(i.Timer5A_Handler)
-    i.commandList                            0x00000dbc   Section        0  st7735.o(i.commandList)
-    commandList                              0x00000dbd   Thumb Code    86  st7735.o(i.commandList)
-    i.commonInit                             0x00000e14   Section        0  st7735.o(i.commonInit)
-    commonInit                               0x00000e15   Thumb Code   342  st7735.o(i.commonInit)
-    i.drawSquare                             0x00000f9c   Section        0  tetris.o(i.drawSquare)
-    i.main                                   0x00001010   Section        0  tetris.o(i.main)
-    i.playsample                             0x00001214   Section        0  sound.o(i.playsample)
-    i.playsound                              0x00001260   Section        0  sound.o(i.playsound)
-    i.pushColor                              0x0000127c   Section        0  st7735.o(i.pushColor)
-    pushColor                                0x0000127d   Thumb Code    18  st7735.o(i.pushColor)
-    i.setAddrWindow                          0x00001290   Section        0  st7735.o(i.setAddrWindow)
-    setAddrWindow                            0x00001291   Thumb Code   106  st7735.o(i.setAddrWindow)
-    .constdata                               0x00001304   Section     2114  st7735.o(.constdata)
-    Font                                     0x00001304   Data        1275  st7735.o(.constdata)
-    Bcmd                                     0x000017ff   Data         103  st7735.o(.constdata)
-    Rcmd1                                    0x00001866   Data          59  st7735.o(.constdata)
-    Rcmd2green                               0x000018a1   Data          13  st7735.o(.constdata)
-    Rcmd2red                                 0x000018ae   Data          13  st7735.o(.constdata)
-    Rcmd3                                    0x000018bb   Data          43  st7735.o(.constdata)
-    .constdata                               0x00001b46   Section    16887  tetris.o(.constdata)
+    i.SysTick_Init                           0x00000e1c   Section        0  tetris.o(i.SysTick_Init)
+    i.Timer1A_Handler                        0x00000e4c   Section        0  tetris.o(i.Timer1A_Handler)
+    i.Timer1_Init                            0x00000e58   Section        0  timer1.o(i.Timer1_Init)
+    i.Timer1_Stop                            0x00000eb8   Section        0  timer1.o(i.Timer1_Stop)
+    i.Timer5A_Handler                        0x00000ec4   Section        0  texas.o(i.Timer5A_Handler)
+    i.collisionCheck                         0x00000edc   Section        0  tetris.o(i.collisionCheck)
+    i.commandList                            0x00000f70   Section        0  st7735.o(i.commandList)
+    commandList                              0x00000f71   Thumb Code    86  st7735.o(i.commandList)
+    i.commonInit                             0x00000fc8   Section        0  st7735.o(i.commonInit)
+    commonInit                               0x00000fc9   Thumb Code   342  st7735.o(i.commonInit)
+    i.drawSquare                             0x00001150   Section        0  tetris.o(i.drawSquare)
+    i.main                                   0x000011c4   Section        0  tetris.o(i.main)
+    i.playsample                             0x0000130c   Section        0  sound.o(i.playsample)
+    i.playsound                              0x00001358   Section        0  sound.o(i.playsound)
+    i.pushColor                              0x00001374   Section        0  st7735.o(i.pushColor)
+    pushColor                                0x00001375   Thumb Code    18  st7735.o(i.pushColor)
+    i.setAddrWindow                          0x00001388   Section        0  st7735.o(i.setAddrWindow)
+    setAddrWindow                            0x00001389   Thumb Code   106  st7735.o(i.setAddrWindow)
+    .constdata                               0x000013fc   Section     2114  st7735.o(.constdata)
+    Font                                     0x000013fc   Data        1275  st7735.o(.constdata)
+    Bcmd                                     0x000018f7   Data         103  st7735.o(.constdata)
+    Rcmd1                                    0x0000195e   Data          59  st7735.o(.constdata)
+    Rcmd2green                               0x00001999   Data          13  st7735.o(.constdata)
+    Rcmd2red                                 0x000019a6   Data          13  st7735.o(.constdata)
+    Rcmd3                                    0x000019b3   Data          43  st7735.o(.constdata)
+    .constdata                               0x00001c3e   Section    16887  tetris.o(.constdata)
     .data                                    0x20000000   Section    48772  sound.o(.data)
     .data                                    0x2000be84   Section       44  st7735.o(.data)
     ColStart                                 0x2000be8e   Data           1  st7735.o(.data)
@@ -506,12 +510,12 @@ Image Symbol Table
     _width                                   0x2000be92   Data           2  st7735.o(.data)
     _height                                  0x2000be94   Data           2  st7735.o(.data)
     .data                                    0x2000beb0   Section        4  texas.o(.data)
-    .data                                    0x2000beb4   Section     1118  tetris.o(.data)
+    .data                                    0x2000beb4   Section     1121  tetris.o(.data)
     allBlocks                                0x2000bee8   Data        1056  tetris.o(.data)
-    DATA                                     0x2000c314   Section        4  random.o(DATA)
-    M                                        0x2000c314   Data           4  random.o(DATA)
-    .bss                                     0x2000c318   Section      260  tetris.o(.bss)
-    .bss                                     0x2000c41c   Section       96  libspace.o(.bss)
+    DATA                                     0x2000c318   Section        4  random.o(DATA)
+    M                                        0x2000c318   Data           4  random.o(DATA)
+    .bss                                     0x2000c31c   Section      260  tetris.o(.bss)
+    .bss                                     0x2000c420   Section       96  libspace.o(.bss)
     HEAP                                     0x2000c480   Section        0  startup.o(HEAP)
     STACK                                    0x2000c480   Section     1024  startup.o(STACK)
     HeapMem                                  0x2000c480   Data           0  startup.o(HEAP)
@@ -764,34 +768,35 @@ Image Symbol Table
     ST7735_OutString                         0x00000bcd   Thumb Code    22  st7735.o(i.ST7735_OutString)
     ST7735_SetCursor                         0x00000be5   Thumb Code    22  st7735.o(i.ST7735_SetCursor)
     ST7735_SetTextColor                      0x00000c05   Thumb Code     6  st7735.o(i.ST7735_SetTextColor)
-    SysTick_Handler                          0x00000c11   Thumb Code   212  tetris.o(i.SysTick_Handler)
-    SysTick_Init                             0x00000cfd   Thumb Code    42  tetris.o(i.SysTick_Init)
-    Timer1A_Handler                          0x00000d2d   Thumb Code     8  tetris.o(i.Timer1A_Handler)
-    Timer1_Init                              0x00000d39   Thumb Code    78  timer1.o(i.Timer1_Init)
-    Timer1_Stop                              0x00000d99   Thumb Code     8  timer1.o(i.Timer1_Stop)
-    Timer5A_Handler                          0x00000da5   Thumb Code    16  texas.o(i.Timer5A_Handler)
-    drawSquare                               0x00000f9d   Thumb Code   116  tetris.o(i.drawSquare)
-    main                                     0x00001011   Thumb Code   422  tetris.o(i.main)
-    playsample                               0x00001215   Thumb Code    62  sound.o(i.playsample)
-    playsound                                0x00001261   Thumb Code    20  sound.o(i.playsound)
-    smallCircle                              0x000018e6   Data          36  st7735.o(.constdata)
-    circle                                   0x0000190a   Data          60  st7735.o(.constdata)
-    dBfs                                     0x00001946   Data         512  st7735.o(.constdata)
-    tetrisTitle                              0x00001b46   Data       16800  tetris.o(.constdata)
-    Hello_English                            0x00005ce6   Data           6  tetris.o(.constdata)
-    Hello_Spanish                            0x00005cec   Data           7  tetris.o(.constdata)
-    Hello_Portuguese                         0x00005cf3   Data           4  tetris.o(.constdata)
-    Hello_French                             0x00005cf7   Data           5  tetris.o(.constdata)
-    Goodbye_English                          0x00005cfc   Data           8  tetris.o(.constdata)
-    Goodbye_Spanish                          0x00005d04   Data           6  tetris.o(.constdata)
-    Goodbye_Portuguese                       0x00005d0a   Data           6  tetris.o(.constdata)
-    Goodbye_French                           0x00005d10   Data          10  tetris.o(.constdata)
-    Language_English                         0x00005d1a   Data           8  tetris.o(.constdata)
-    Language_Spanish                         0x00005d22   Data           8  tetris.o(.constdata)
-    Language_Portuguese                      0x00005d2a   Data          10  tetris.o(.constdata)
-    Language_French                          0x00005d34   Data           9  tetris.o(.constdata)
-    Region$$Table$$Base                      0x00005d40   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00005d60   Number         0  anon$$obj.o(Region$$Table)
+    SysTick_Handler                          0x00000c11   Thumb Code   490  tetris.o(i.SysTick_Handler)
+    SysTick_Init                             0x00000e1d   Thumb Code    42  tetris.o(i.SysTick_Init)
+    Timer1A_Handler                          0x00000e4d   Thumb Code     8  tetris.o(i.Timer1A_Handler)
+    Timer1_Init                              0x00000e59   Thumb Code    78  timer1.o(i.Timer1_Init)
+    Timer1_Stop                              0x00000eb9   Thumb Code     8  timer1.o(i.Timer1_Stop)
+    Timer5A_Handler                          0x00000ec5   Thumb Code    16  texas.o(i.Timer5A_Handler)
+    collisionCheck                           0x00000edd   Thumb Code   128  tetris.o(i.collisionCheck)
+    drawSquare                               0x00001151   Thumb Code   116  tetris.o(i.drawSquare)
+    main                                     0x000011c5   Thumb Code   246  tetris.o(i.main)
+    playsample                               0x0000130d   Thumb Code    62  sound.o(i.playsample)
+    playsound                                0x00001359   Thumb Code    20  sound.o(i.playsound)
+    smallCircle                              0x000019de   Data          36  st7735.o(.constdata)
+    circle                                   0x00001a02   Data          60  st7735.o(.constdata)
+    dBfs                                     0x00001a3e   Data         512  st7735.o(.constdata)
+    tetrisTitle                              0x00001c3e   Data       16800  tetris.o(.constdata)
+    Hello_English                            0x00005dde   Data           6  tetris.o(.constdata)
+    Hello_Spanish                            0x00005de4   Data           7  tetris.o(.constdata)
+    Hello_Portuguese                         0x00005deb   Data           4  tetris.o(.constdata)
+    Hello_French                             0x00005def   Data           5  tetris.o(.constdata)
+    Goodbye_English                          0x00005df4   Data           8  tetris.o(.constdata)
+    Goodbye_Spanish                          0x00005dfc   Data           6  tetris.o(.constdata)
+    Goodbye_Portuguese                       0x00005e02   Data           6  tetris.o(.constdata)
+    Goodbye_French                           0x00005e08   Data          10  tetris.o(.constdata)
+    Language_English                         0x00005e12   Data           8  tetris.o(.constdata)
+    Language_Spanish                         0x00005e1a   Data           8  tetris.o(.constdata)
+    Language_Portuguese                      0x00005e22   Data          10  tetris.o(.constdata)
+    Language_French                          0x00005e2c   Data           9  tetris.o(.constdata)
+    Region$$Table$$Base                      0x00005e38   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00005e58   Number         0  anon$$obj.o(Region$$Table)
     sound2play                               0x20000000   Data           4  sound.o(.data)
     tetris                                   0x20000004   Data       15864  sound.o(.data)
     gameover                                 0x20003dfc   Data       18375  sound.o(.data)
@@ -810,14 +815,16 @@ Image Symbol Table
     PeriodicTask2                            0x2000beb0   Data           4  texas.o(.data)
     myLanguage                               0x2000beb4   Data           1  tetris.o(.data)
     Phrases                                  0x2000beb8   Data          48  tetris.o(.data)
-    xpos                                     0x2000c308   Data           1  tetris.o(.data)
-    ypos                                     0x2000c309   Data           1  tetris.o(.data)
-    n                                        0x2000c30c   Data           4  tetris.o(.data)
-    status                                   0x2000c310   Data           1  tetris.o(.data)
-    BLOCK                                    0x2000c311   Data           1  tetris.o(.data)
-    tetrisBoard                              0x2000c318   Data         260  tetris.o(.bss)
-    __libspace_start                         0x2000c41c   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x2000c47c   Data           0  libspace.o(.bss)
+    BLOCK                                    0x2000c308   Data           1  tetris.o(.data)
+    xpos                                     0x2000c309   Data           1  tetris.o(.data)
+    ypos                                     0x2000c30a   Data           1  tetris.o(.data)
+    wantedXpos                               0x2000c30b   Data           1  tetris.o(.data)
+    wantedYpos                               0x2000c30c   Data           1  tetris.o(.data)
+    n                                        0x2000c310   Data           4  tetris.o(.data)
+    status                                   0x2000c314   Data           1  tetris.o(.data)
+    tetrisBoard                              0x2000c31c   Data         260  tetris.o(.bss)
+    __libspace_start                         0x2000c420   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x2000c480   Data           0  libspace.o(.bss)
 
 
 
@@ -827,71 +834,71 @@ Memory Map of the image
 
   Image Entry point : 0x0000026d
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00012078, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000084d4])
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00012174, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000085d0])
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00005d60, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00005e58, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000000   0x00000284   Code   RO            3  * RESET               startup.o
-    0x00000284   0x00000284   0x00000008   Code   RO          630  * !!!main             c_w.l(__main.o)
-    0x0000028c   0x0000028c   0x00000034   Code   RO          791    !!!scatter          c_w.l(__scatter.o)
-    0x000002c0   0x000002c0   0x00000064   Code   RO          789    !!dclz77c           c_w.l(__dclz77c.o)
-    0x00000324   0x00000324   0x0000001c   Code   RO          793    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x00000340   0x00000340   0x00000002   Code   RO          657    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          664    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          666    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          669    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          671    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          673    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          676    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          678    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          680    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          682    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          684    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          686    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          688    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          690    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          692    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          694    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          696    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          700    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          702    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          704    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          706    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000002   Code   RO          707    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x00000344   0x00000344   0x00000002   Code   RO          727    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          740    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          742    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          744    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          747    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          750    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          752    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          755    .ARM.Collect$$libshutdown$$00000011  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000002   Code   RO          756    .ARM.Collect$$libshutdown$$00000012  c_w.l(libshutdown2.o)
-    0x00000348   0x00000348   0x00000000   Code   RO          632    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x00000348   0x00000348   0x00000000   Code   RO          634    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x00000348   0x00000348   0x00000006   Code   RO          646    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x0000034e   0x0000034e   0x00000000   Code   RO          636    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x0000034e   0x0000034e   0x00000004   Code   RO          637    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x00000352   0x00000352   0x00000000   Code   RO          639    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x00000352   0x00000352   0x00000008   Code   RO          640    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x0000035a   0x0000035a   0x00000002   Code   RO          661    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x0000035c   0x0000035c   0x00000000   Code   RO          709    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x0000035c   0x0000035c   0x00000004   Code   RO          710    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x00000360   0x00000360   0x00000006   Code   RO          711    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x00000284   0x00000284   0x00000008   Code   RO          636  * !!!main             c_w.l(__main.o)
+    0x0000028c   0x0000028c   0x00000034   Code   RO          797    !!!scatter          c_w.l(__scatter.o)
+    0x000002c0   0x000002c0   0x00000064   Code   RO          795    !!dclz77c           c_w.l(__dclz77c.o)
+    0x00000324   0x00000324   0x0000001c   Code   RO          799    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x00000340   0x00000340   0x00000002   Code   RO          663    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          670    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          672    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          675    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          677    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          679    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          682    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          684    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          686    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          688    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          690    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          692    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          694    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          696    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          698    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          700    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          702    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          706    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          708    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          710    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          712    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000002   Code   RO          713    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x00000344   0x00000344   0x00000002   Code   RO          733    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          746    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          748    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          750    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          753    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          756    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          758    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          761    .ARM.Collect$$libshutdown$$00000011  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000002   Code   RO          762    .ARM.Collect$$libshutdown$$00000012  c_w.l(libshutdown2.o)
+    0x00000348   0x00000348   0x00000000   Code   RO          638    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x00000348   0x00000348   0x00000000   Code   RO          640    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x00000348   0x00000348   0x00000006   Code   RO          652    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x0000034e   0x0000034e   0x00000000   Code   RO          642    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x0000034e   0x0000034e   0x00000004   Code   RO          643    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x00000352   0x00000352   0x00000000   Code   RO          645    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x00000352   0x00000352   0x00000008   Code   RO          646    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x0000035a   0x0000035a   0x00000002   Code   RO          667    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x0000035c   0x0000035c   0x00000000   Code   RO          715    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x0000035c   0x0000035c   0x00000004   Code   RO          716    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x00000360   0x00000360   0x00000006   Code   RO          717    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x00000366   0x00000366   0x00000002   PAD
     0x00000368   0x00000368   0x00000030   Code   RO            4    .text               startup.o
     0x00000398   0x00000398   0x00000040   Code   RO           13    .text               random.o
     0x000003d8   0x000003d8   0x00000058   Code   RO          128    .text               lcd.o
-    0x00000430   0x00000430   0x00000006   Code   RO          628    .text               c_w.l(heapauxi.o)
-    0x00000436   0x00000436   0x0000004a   Code   RO          648    .text               c_w.l(sys_stackheap_outer.o)
-    0x00000480   0x00000480   0x00000012   Code   RO          650    .text               c_w.l(exit.o)
+    0x00000430   0x00000430   0x00000006   Code   RO          634    .text               c_w.l(heapauxi.o)
+    0x00000436   0x00000436   0x0000004a   Code   RO          654    .text               c_w.l(sys_stackheap_outer.o)
+    0x00000480   0x00000480   0x00000012   Code   RO          656    .text               c_w.l(exit.o)
     0x00000492   0x00000492   0x00000002   PAD
-    0x00000494   0x00000494   0x00000008   Code   RO          658    .text               c_w.l(libspace.o)
-    0x0000049c   0x0000049c   0x0000000c   Code   RO          719    .text               c_w.l(sys_exit.o)
-    0x000004a8   0x000004a8   0x00000002   Code   RO          730    .text               c_w.l(use_no_semi.o)
-    0x000004aa   0x000004aa   0x00000000   Code   RO          732    .text               c_w.l(indicate_semi.o)
+    0x00000494   0x00000494   0x00000008   Code   RO          664    .text               c_w.l(libspace.o)
+    0x0000049c   0x0000049c   0x0000000c   Code   RO          725    .text               c_w.l(sys_exit.o)
+    0x000004a8   0x000004a8   0x00000002   Code   RO          736    .text               c_w.l(use_no_semi.o)
+    0x000004aa   0x000004aa   0x00000000   Code   RO          738    .text               c_w.l(indicate_semi.o)
     0x000004aa   0x000004aa   0x00000002   PAD
     0x000004ac   0x000004ac   0x0000002c   Code   RO           41    i.ADC_In            adc.o
     0x000004d8   0x000004d8   0x000000ec   Code   RO           42    i.ADC_Init          adc.o
@@ -912,47 +919,47 @@ Memory Map of the image
     0x00000be2   0x00000be2   0x00000002   PAD
     0x00000be4   0x00000be4   0x00000020   Code   RO          166    i.ST7735_SetCursor  st7735.o
     0x00000c04   0x00000c04   0x0000000c   Code   RO          168    i.ST7735_SetTextColor  st7735.o
-    0x00000c10   0x00000c10   0x000000ec   Code   RO          543    i.SysTick_Handler   tetris.o
-    0x00000cfc   0x00000cfc   0x00000030   Code   RO          544    i.SysTick_Init      tetris.o
-    0x00000d2c   0x00000d2c   0x0000000c   Code   RO          545    i.Timer1A_Handler   tetris.o
-    0x00000d38   0x00000d38   0x00000060   Code   RO           71    i.Timer1_Init       timer1.o
-    0x00000d98   0x00000d98   0x0000000c   Code   RO           72    i.Timer1_Stop       timer1.o
-    0x00000da4   0x00000da4   0x00000018   Code   RO          428    i.Timer5A_Handler   texas.o
-    0x00000dbc   0x00000dbc   0x00000056   Code   RO          170    i.commandList       st7735.o
-    0x00000e12   0x00000e12   0x00000002   PAD
-    0x00000e14   0x00000e14   0x00000188   Code   RO          171    i.commonInit        st7735.o
-    0x00000f9c   0x00000f9c   0x00000074   Code   RO          546    i.drawSquare        tetris.o
-    0x00001010   0x00001010   0x00000204   Code   RO          547    i.main              tetris.o
-    0x00001214   0x00001214   0x0000004c   Code   RO           90    i.playsample        sound.o
-    0x00001260   0x00001260   0x0000001c   Code   RO           91    i.playsound         sound.o
-    0x0000127c   0x0000127c   0x00000012   Code   RO          177    i.pushColor         st7735.o
-    0x0000128e   0x0000128e   0x00000002   PAD
-    0x00001290   0x00001290   0x00000074   Code   RO          178    i.setAddrWindow     st7735.o
-    0x00001304   0x00001304   0x00000842   Data   RO          180    .constdata          st7735.o
-    0x00001b46   0x00001b46   0x000041f7   Data   RO          549    .constdata          tetris.o
-    0x00005d3d   0x00005d3d   0x00000003   PAD
-    0x00005d40   0x00005d40   0x00000020   Data   RO          787    Region$$Table       anon$$obj.o
+    0x00000c10   0x00000c10   0x0000020c   Code   RO          543    i.SysTick_Handler   tetris.o
+    0x00000e1c   0x00000e1c   0x00000030   Code   RO          544    i.SysTick_Init      tetris.o
+    0x00000e4c   0x00000e4c   0x0000000c   Code   RO          545    i.Timer1A_Handler   tetris.o
+    0x00000e58   0x00000e58   0x00000060   Code   RO           71    i.Timer1_Init       timer1.o
+    0x00000eb8   0x00000eb8   0x0000000c   Code   RO           72    i.Timer1_Stop       timer1.o
+    0x00000ec4   0x00000ec4   0x00000018   Code   RO          428    i.Timer5A_Handler   texas.o
+    0x00000edc   0x00000edc   0x00000094   Code   RO          546    i.collisionCheck    tetris.o
+    0x00000f70   0x00000f70   0x00000056   Code   RO          170    i.commandList       st7735.o
+    0x00000fc6   0x00000fc6   0x00000002   PAD
+    0x00000fc8   0x00000fc8   0x00000188   Code   RO          171    i.commonInit        st7735.o
+    0x00001150   0x00001150   0x00000074   Code   RO          547    i.drawSquare        tetris.o
+    0x000011c4   0x000011c4   0x00000148   Code   RO          548    i.main              tetris.o
+    0x0000130c   0x0000130c   0x0000004c   Code   RO           90    i.playsample        sound.o
+    0x00001358   0x00001358   0x0000001c   Code   RO           91    i.playsound         sound.o
+    0x00001374   0x00001374   0x00000012   Code   RO          177    i.pushColor         st7735.o
+    0x00001386   0x00001386   0x00000002   PAD
+    0x00001388   0x00001388   0x00000074   Code   RO          178    i.setAddrWindow     st7735.o
+    0x000013fc   0x000013fc   0x00000842   Data   RO          180    .constdata          st7735.o
+    0x00001c3e   0x00001c3e   0x000041f7   Data   RO          550    .constdata          tetris.o
+    0x00005e35   0x00005e35   0x00000003   PAD
+    0x00005e38   0x00005e38   0x00000020   Data   RO          793    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00005d60, Size: 0x0000c318, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00002774])
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00005e58, Size: 0x0000c31c, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00002778])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20000000   COMPRESSED   0x0000be84   Data   RW           92    .data               sound.o
     0x2000be84   COMPRESSED   0x0000002c   Data   RW          181    .data               st7735.o
     0x2000beb0   COMPRESSED   0x00000004   Data   RW          433    .data               texas.o
-    0x2000beb4   COMPRESSED   0x0000045e   Data   RW          550    .data               tetris.o
-    0x2000c312   COMPRESSED   0x00000002   PAD
-    0x2000c314   COMPRESSED   0x00000004   Data   RW           12    DATA                random.o
+    0x2000beb4   COMPRESSED   0x00000461   Data   RW          551    .data               tetris.o
+    0x2000c315   COMPRESSED   0x00000003   PAD
+    0x2000c318   COMPRESSED   0x00000004   Data   RW           12    DATA                random.o
 
 
-    Execution Region ER_ZI (Exec base: 0x2000c318, Load base: 0x000084d4, Size: 0x00000568, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x2000c31c, Load base: 0x000085d0, Size: 0x00000564, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x2000c318        -       0x00000104   Zero   RW          548    .bss                tetris.o
-    0x2000c41c        -       0x00000060   Zero   RW          659    .bss                c_w.l(libspace.o)
-    0x2000c47c   0x000084d4   0x00000004   PAD
+    0x2000c31c        -       0x00000104   Zero   RW          549    .bss                tetris.o
+    0x2000c420        -       0x00000060   Zero   RW          665    .bss                c_w.l(libspace.o)
     0x2000c480        -       0x00000000   Zero   RW            2    HEAP                startup.o
     0x2000c480        -       0x00000400   Zero   RW            1    STACK               startup.o
 
