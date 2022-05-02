@@ -399,6 +399,7 @@ int main(void){
 
 	while(1){ //Tetris Game Starts
 		EnableInterrupts();
+		playsound(1);
 		
 		DisableInterrupts(); //Do not want interrupts during refreshing/updating of the LCD screen & Tetris Array
 //		for(signed int x=0; x<3; x++){ //This function puts the current block data into the Board array
