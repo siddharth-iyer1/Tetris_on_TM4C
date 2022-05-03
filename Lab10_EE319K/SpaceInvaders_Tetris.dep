@@ -5,7 +5,7 @@ F (.\random.s)(0x626F2C78)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interw
 F (.\DAC.c)(0x626F2C78)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\siddh\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\siddh\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\dac.o --omf_browse .\dac.crf --depend .\dac.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x626F2C78)
-F (.\ADC.c)(0x626F2C78)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\siddh\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\siddh\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\adc.o --omf_browse .\adc.crf --depend .\adc.d)
+F (.\ADC.c)(0x62719689)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\siddh\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\siddh\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\adc.o --omf_browse .\adc.crf --depend .\adc.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x626F2C78)
 F (.\Timer0.c)(0x626F2C78)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\siddh\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\siddh\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\timer0.o --omf_browse .\timer0.crf --depend .\timer0.d)
@@ -14,7 +14,7 @@ I (tm4c123gh6pm.h)(0x626F2C78)
 F (.\Timer1.c)(0x626F356A)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\siddh\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\siddh\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\timer1.o --omf_browse .\timer1.crf --depend .\timer1.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x626F2C78)
-F (.\Sound.c)(0x627057DA)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\siddh\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\siddh\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\sound.o --omf_browse .\sound.crf --depend .\sound.d)
+F (.\Sound.c)(0x6271A3D1)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\siddh\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\siddh\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\sound.o --omf_browse .\sound.crf --depend .\sound.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x626F2C78)
 I (Sound.h)(0x626F2C78)
@@ -37,14 +37,14 @@ F (.\PLL.c)(0x626F2C78)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --sp
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (PLL.h)(0x626F2C78)
 I (tm4c123gh6pm.h)(0x626F2C78)
-F (.\Tetris.c)(0x6270586A)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\siddh\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\siddh\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\tetris.o --omf_browse .\tetris.crf --depend .\tetris.d)
+F (.\Tetris.c)(0x62719A73)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\siddh\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\siddh\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\tetris.o --omf_browse .\tetris.crf --depend .\tetris.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x626F2C78)
 I (ST7735.h)(0x626F2C78)
 I (Print.h)(0x626F2C78)
 I (Random.h)(0x626F2C78)
 I (TExaS.h)(0x626F2C78)
-I (ADC.h)(0x626F2C78)
+I (ADC.h)(0x62719689)
 I (Images.h)(0x626F2C78)
 I (Sound.h)(0x626F2C78)
 I (Timer1.h)(0x62702F7A)
