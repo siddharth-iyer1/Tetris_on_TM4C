@@ -248,19 +248,88 @@ void SysTick_Init(uint32_t period){
 }
 
 
-int collisionCheck(){
+
+int collisionCheckY(){
 	int check = 0;
 	
 	for(int i = 0; i<3; i++){
 		if(tetrisBoard[wantedYpos][wantedXpos] == 1){
 			check = 1;
 		}
-		else if(tetrisBoard[wantedYpos+(allBlocks[BLOCK].offsetY[i])][wantedXpos+(allBlocks[BLOCK].offsetX[i])]==1){
+		else if(tetrisBoard[wantedYpos+(allBlocks[BLOCK].offsetY[i])][xpos]==1){
 			check = 1;
 		}
 	}
 	
 	return check;
+}
+
+int collisionCheckX(){
+	int check = 0;
+	for(int i =0; i<3; i++){
+		if(wantedXpos+allBlocks[BLOCK].offsetX[i]>=10 || wantedXpos+allBlocks[BLOCK].offsetX[i]<0){
+			check = 1;
+		}
+		else if(tetrisBoard[ypos][wantedXpos+allBlocks[BLOCK].offsetX[i]] == 1){
+			check = 1;
+		}
+	}
+	return check;
+}
+
+void checkClear(void){
+	int rowCleared = 0;
+	int row = 0;
+	for(int j=0;j<13;j++){
+		int check = 0;
+		for(int i=0; i<10; i++){
+			if(tetrisBoard[j][i]==0){
+				check = 1;
+			}
+		}
+		if(check==0){
+			row = j;
+			rowCleared++;
+		}
+	}
+	
+	if(rowCleared!=0){
+		for(int j = row; j>row-rowCleared; j--){
+			for(int i=0; i<10; i++){
+				tetrisBoard[j][i] = 0;
+			}
+		}
+		
+		for(int j=0; j<row; j++){
+			for(int i =0; i<10; i++){
+				tetrisBoard[j+rowCleared][i]=tetrisBoard[j][i];
+			}
+		}
+	}
+}
+void rotateBlock(){
+	for(signed int x=0; x<3; x++){
+		tetrisBoard[ypos][xpos] = 0;
+		tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 0; //Erases current block position
+	}
+	int temp = BLOCK;
+	BLOCK = (BLOCK+4)%16;
+	wantedXpos = xpos;
+	wantedYpos = ypos;
+	if(collisionCheckX() != 1 && collisionCheckY() !=1){
+		for(signed int x=0; x<3; x++){
+			tetrisBoard[ypos][xpos] = 1;
+			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1; //Erases current block position
+		}
+	}
+	else{
+		BLOCK = temp;
+		for(signed int x=0; x<3; x++){
+			tetrisBoard[ypos][xpos] = 1;
+			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1; //Redraw
+		}
+	}
+	
 }
 
 void drawSquare(int x, int y, int color, int erase){
@@ -286,13 +355,12 @@ void SysTick_Handler(void){
 		n =1538 * n/4095+176;
 		uint32_t b = ADC_Position(n);
 		wantedXpos = b;
+		
 		for(signed int x=0; x<3; x++){
 			tetrisBoard[ypos][xpos] = 0;
 			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 0; //Erases current block position
 		}
-		
-
-		if(collisionCheck() != 1){
+		if(collisionCheckY() != 1 && collisionCheckX() != 1){
 			ypos++;
 			xpos = wantedXpos;
 			tetrisBoard[ypos][xpos] = 1;
@@ -300,23 +368,32 @@ void SysTick_Handler(void){
 				tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[i])][xpos+(allBlocks[BLOCK].offsetX[i])] = 1; 
 			}
 		}
-		
-		else{
-
+		else if(collisionCheckY() != 1 && collisionCheckX() == 1){
+			ypos = wantedYpos;
+			xpos = xpos;
+			tetrisBoard[ypos][xpos] = 1;
+			for(signed int i=0; i<3; i++){
+				tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[i])][xpos+(allBlocks[BLOCK].offsetX[i])] = 1; 
+			}
+		}
+		else if(collisionCheckY() == 1){
 			tetrisBoard[ypos][xpos] = 1;
 			for(signed int x=0; x<3; x++){
 				tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1; 
 			}
-			ypos = 4; //Reset Y position
-			wantedYpos = 4;
-			BLOCK++; // Change block, will use random function.
-			
+			ypos = 3; //Reset Y position
+			wantedYpos = 3;
+			wantedXpos = 3;
+			xpos=3;
+			BLOCK = (Random32()%60)/4; // Change block, will use random function.
 		}
 	}
 	else if(ypos>=13){ //If it touches ground
-		ypos = 4; //Reset Y position
-		wantedYpos = 4;
-		BLOCK++; // Change block, will use random function.
+		ypos = 3; //Reset Y position
+		wantedYpos = 3;
+		wantedXpos = 3;
+		xpos=3;
+		BLOCK = (Random32()%60)/4; // Change block, will use random function.
 	}
 }
 
@@ -362,6 +439,38 @@ int ADC_Position(uint32_t output){
 		}
 }
 
+void drawBoard(void){
+	for(int i=0; i<10; i++){ //Displays board array onto screen.
+		for(int j=13; j>0; j--){
+			if(tetrisBoard[j][i] != 0){
+				drawSquare(i,j,ST7735_BLUE, 0);
+			}
+			else{
+				drawSquare(i,j,ST7735_BLACK, 1);
+			}
+		}
+	}
+}
+
+void blockDrop(void){
+	for(int j=13; j>-1; j--){
+		wantedYpos = j;
+		wantedXpos = xpos;
+		if(collisionCheckX() != 1 && collisionCheckY() != 1){
+			for(signed int x=0; x<3; x++){
+				tetrisBoard[ypos][xpos] = 0;
+				tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 0; //Erases current block position
+			}
+			ypos = wantedYpos;
+			for(signed int x=0; x<3; x++){
+				tetrisBoard[ypos][xpos] = 1;
+				tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1;
+			}
+		}
+		else{
+		}
+	}
+}
 
 int main(void){
 //Code goes here
@@ -372,7 +481,7 @@ int main(void){
 	leftButtonInit();
 	rightButtonInit();
 	PortD_Init();
-	SysTick_Init(80000000/30);
+	SysTick_Init(80000000/100);
 	Random_Init(55);
 	//Initializations
 	ST7735_FillScreen(0);
@@ -390,7 +499,7 @@ int main(void){
 	
 	// Spanish Version
 
-	while((GPIO_PORTE_DATA_R & 0x02) == 0){}
+	if(GPIO_PORTE_DATA_R && 0x02 == 1){
 		ST7735_FillScreen(0);
 		ST7735_DrawBitmap(10,90,tetrisTitle,105,80);
 		ST7735_SetCursor(4,9);
@@ -404,8 +513,11 @@ int main(void){
 		ST7735_OutString("izquierdo para");
 		ST7735_SetCursor(8,14);
 		ST7735_OutString("jugar");
-		
-	while((GPIO_PORTE_DATA_R & 0x01) == 0){} //Welcome Screen ended, time to play
+	}
+	
+	while(GPIO_PORTE_DATA_R && 0x01 == 0){
+		ST7735_FillScreen(0);
+	} //Welcome Screen ended, time to play
 	
 		//Sets up playing screen
 		
@@ -414,41 +526,24 @@ int main(void){
 	ST7735_SetCursor(0,15);
 	ST7735_DrawString(0,15,"Score: ", ST7735_CYAN);
 	
-	BLOCK = 0;//(Random32()%60)/4; // returns a random number from 0 to 59
+	BLOCK = (Random32()%60)/4; // returns a random number from 0 to 59
 
 	while(1){ //Tetris Game Starts
 		EnableInterrupts();
-		playsound(1);
+		playsound(clearrow);
 		
-		DisableInterrupts(); //Do not want interrupts during refreshing/updating of the LCD screen & Tetris Array
-//		for(signed int x=0; x<3; x++){ //This function puts the current block data into the Board array
-//			tetrisBoard[ypos][xpos] = allBlocks[BLOCK].blockData[allBlocks[BLOCK].bottomX][allBlocks[BLOCK].bottomY];
-//			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1;
-//		}
-
-
-		
-		for(int i=0; i<10; i++){ //Displays board array onto screen.
-			for(int j=0; j<14; j++){
-				if(tetrisBoard[j][i] != 0){
-					drawSquare(i,j,ST7735_BLUE, 0);
-				}
-				else{
-					drawSquare(i,j,ST7735_BLACK, 1);
-				}
-					//ST7735_SetCursor(i,j);
-					//LCD_OutDec(tetrisBoard[j][i]);
-			}
+		if(GPIO_PORTE_DATA_R && 0x01 == 1){
+			rotateBlock();
 		}
 		
-		EnableInterrupts();
+		if(GPIO_PORTE_DATA_R && 0x02 == 1){
+			blockDrop();
+		}
 		
-//		for(int i=0; i<10; i++){
-//			for(int j=5; j<13; j++){
-//				ST7735_SetCursor(i,j-4);
-//				LCD_OutDec(tetrisBoard[j][i]);
-//			}
-//		}
+		DisableInterrupts(); //Do not want interrupts during refreshing/updating of the LCD screen & Tetris Array
+		drawBoard();
+		EnableInterrupts();
+		checkClear();
 		
 
 		//Game Over, restart

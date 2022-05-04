@@ -47,20 +47,16 @@ uint32_t ADC_In(void){
 
 
 void leftButtonInit(void){
-	SYSCTL_RCGCADC_R |= 0x0010;   // 1) activate ADC0
   SYSCTL_RCGCGPIO_R |= 0x10;    // 2) activate clock for Port E
   while((SYSCTL_PRGPIO_R&0x10) != 0x10){};  // 3 for stabilization
-  GPIO_PORTE_DIR_R &= ~0x01;    // 4) make PE0 input
-  GPIO_PORTE_AFSEL_R |= 0x01;   // 5) enable alternate function on PE0
-  GPIO_PORTE_DEN_R &= ~0x01;    // 6) disable digital I/O on PE0
-  GPIO_PORTE_AMSEL_R |= 0x01;   // 7) enable analog functionality on PE0
+  GPIO_PORTE_DIR_R |= 0x00;    // 4) make PE0 input
+  GPIO_PORTE_DEN_R |= 0x01;    // 6) disable digital I/O on PE0
+
 }
 
 void rightButtonInit(void){
-  GPIO_PORTE_DIR_R &= ~0x02;    // 4) make PE1 input
-  GPIO_PORTE_AFSEL_R |= 0x02;   // 5) enable alternate function on PE1
-  GPIO_PORTE_DEN_R &= ~0x02;    // 6) disable digital I/O on PE1
-  GPIO_PORTE_AMSEL_R |= 0x02;   // 7) enable analog functionality on PE1
+  GPIO_PORTE_DIR_R |= 0x00;    // 4) make PE1 input
+  GPIO_PORTE_DEN_R |= 0x02;   
 }
 
 uint32_t buttonIn(void){
