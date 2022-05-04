@@ -24,5 +24,5 @@ uint32_t ADC_In(void);
 void leftButtonInit(void);
 void rightButtonInit(void);
 uint32_t buttonIn(void);
-
+int ADC_Position(uint32_t output);
 #endif

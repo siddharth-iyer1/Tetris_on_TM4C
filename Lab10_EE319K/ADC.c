@@ -67,3 +67,45 @@ uint32_t buttonIn(void){
 	ADC0_ISC_R = 0x0008;
 	return buttonVal;
 }
+
+int ADC_Position(uint32_t output){
+		if(output > 100 && output < 350){
+			return 0;
+		}
+	
+		else if(output > 351 && output < 500){
+			return 1;
+		}
+		
+		else if(output >= 500 && output < 650){
+			return 2;
+		}
+	
+		else if(output >= 650 && output < 800){
+			return 3;	
+		}
+	
+		else if(output >= 800 && output < 950){
+			return 4;
+		}
+	
+		else if(output >= 950 && output < 1100){
+			return 5;
+		}
+	
+		else if(output >= 1100 && output < 1250){
+			return 6;
+		}
+	
+		else if(output >= 1250 && output < 1400){
+			return 7;		  
+		}               
+										
+		else if(output >= 1400 && output < 1550){
+			return 8;		  
+		}               
+										
+		else if(output >= 1550 && output < 2000){
+			return 9;	
+		}
+}

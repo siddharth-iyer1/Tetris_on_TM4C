@@ -397,47 +397,7 @@ void SysTick_Handler(void){
 	}
 }
 
-int ADC_Position(uint32_t output){
-		if(output > 100 && output < 350){
-			return 0;
-		}
-	
-		else if(output > 351 && output < 500){
-			return 1;
-		}
-		
-		else if(output >= 500 && output < 650){
-			return 2;
-		}
-	
-		else if(output >= 650 && output < 800){
-			return 3;	
-		}
-	
-		else if(output >= 800 && output < 950){
-			return 4;
-		}
-	
-		else if(output >= 950 && output < 1100){
-			return 5;
-		}
-	
-		else if(output >= 1100 && output < 1250){
-			return 6;
-		}
-	
-		else if(output >= 1250 && output < 1400){
-			return 7;		  
-		}               
-										
-		else if(output >= 1400 && output < 1550){
-			return 8;		  
-		}               
-										
-		else if(output >= 1550 && output < 2000){
-			return 9;	
-		}
-}
+
 
 void drawBoard(void){
 	for(int i=0; i<10; i++){ //Displays board array onto screen.
@@ -470,6 +430,16 @@ void blockDrop(void){
 		else{
 		}
 	}
+}
+
+int checkGameOver(void){
+	int gameover = 0;
+	for(int i=0; i<10;i++){
+		if(tetrisBoard[3][i] == 1 && (allBlocks[BLOCK].offsetY[0]!=3 || allBlocks[BLOCK].offsetY[1]!=3 || allBlocks[BLOCK].offsetY[2]!=3)){
+			gameover = 1;
+		}
+	}
+	return gameover;
 }
 
 int main(void){
@@ -519,6 +489,7 @@ int main(void){
 		ST7735_FillScreen(0);
 	} //Welcome Screen ended, time to play
 	
+	
 		//Sets up playing screen
 		
 	ST7735_FillScreen(0);
@@ -542,10 +513,16 @@ int main(void){
 		
 		DisableInterrupts(); //Do not want interrupts during refreshing/updating of the LCD screen & Tetris Array
 		drawBoard();
-		EnableInterrupts();
 		checkClear();
+		if(checkGameOver() == 1){
+			//Game over print stuff
+			Delay100ms(30);
+			goto GAMEOVER;
+		}
+		EnableInterrupts();
 		
 
+		GAMEOVER:main();
 		//Game Over, restart
 		//main();
 		
