@@ -248,14 +248,14 @@ void SysTick_Init(uint32_t period){
 }
 
 
-int collisionCheckY(){
+int collisionCheck(){
 	int check = 0;
 	
 	for(int i = 0; i<3; i++){
 		if(tetrisBoard[wantedYpos][wantedXpos] == 1){
 			check = 1;
 		}
-		else if(tetrisBoard[wantedYpos+(allBlocks[BLOCK].offsetY[i])][xpos]==1){
+		else if(tetrisBoard[wantedYpos+(allBlocks[BLOCK].offsetY[i])][wantedXpos+(allBlocks[BLOCK].offsetX[i])]==1){
 			check = 1;
 		}
 	}
@@ -263,18 +263,6 @@ int collisionCheckY(){
 	return check;
 }
 
-int collisionCheckX(){
-	int check = 0;
-	for(int i =0; i<3; i++){
-		if(wantedXpos+allBlocks[BLOCK].offsetX[i]>=10 || wantedXpos+allBlocks[BLOCK].offsetX[i]<0){
-			check = 1;
-		}
-		else if(tetrisBoard[ypos][wantedXpos+allBlocks[BLOCK].offsetX[i]] == 1){
-			check = 1;
-		}
-	}
-	return check;
-}
 void drawSquare(int x, int y, int color, int erase){
 	for(int x1=0; x1<10; x1++){
 		for(int y1=0; y1<10; y1++){
@@ -298,14 +286,13 @@ void SysTick_Handler(void){
 		n =1538 * n/4095+176;
 		uint32_t b = ADC_Position(n);
 		wantedXpos = b;
-		
 		for(signed int x=0; x<3; x++){
 			tetrisBoard[ypos][xpos] = 0;
 			tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 0; //Erases current block position
 		}
 		
 
-		if(collisionCheckY() != 1 && collisionCheckX() != 1){
+		if(collisionCheck() != 1){
 			ypos++;
 			xpos = wantedXpos;
 			tetrisBoard[ypos][xpos] = 1;
@@ -314,16 +301,8 @@ void SysTick_Handler(void){
 			}
 		}
 		
-		else if(collisionCheckY() != 1 && collisionCheckX() == 1){
-			ypos = wantedYpos;
-			xpos = xpos;
-			tetrisBoard[ypos][xpos] = 1;
-			for(signed int i=0; i<3; i++){
-				tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[i])][xpos+(allBlocks[BLOCK].offsetX[i])] = 1; 
-			}
-			
-		}
-		else if(collisionCheckY() == 1){
+		else{
+
 			tetrisBoard[ypos][xpos] = 1;
 			for(signed int x=0; x<3; x++){
 				tetrisBoard[ypos+(allBlocks[BLOCK].offsetY[x])][xpos+(allBlocks[BLOCK].offsetX[x])] = 1; 

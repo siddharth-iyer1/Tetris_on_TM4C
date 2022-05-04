@@ -847,117 +847,117 @@ Memory Map of the image
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000000   0x00000284   Code   RO            3  * RESET               startup.o
-    0x00000284   0x00000284   0x00000008   Code   RO          663  * !!!main             c_w.l(__main.o)
-    0x0000028c   0x0000028c   0x00000034   Code   RO          824    !!!scatter          c_w.l(__scatter.o)
-    0x000002c0   0x000002c0   0x00000064   Code   RO          822    !!dclz77c           c_w.l(__dclz77c.o)
-    0x00000324   0x00000324   0x0000001c   Code   RO          826    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x00000340   0x00000340   0x00000002   Code   RO          690    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          697    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          699    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          702    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          704    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          706    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          709    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          711    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          713    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          715    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          717    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          719    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          721    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          723    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          725    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          727    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          729    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          733    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          735    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          737    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000000   Code   RO          739    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x00000342   0x00000342   0x00000002   Code   RO          740    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x00000344   0x00000344   0x00000002   Code   RO          760    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          773    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          775    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          777    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          780    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          783    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          785    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000000   Code   RO          788    .ARM.Collect$$libshutdown$$00000011  c_w.l(libshutdown2.o)
-    0x00000346   0x00000346   0x00000002   Code   RO          789    .ARM.Collect$$libshutdown$$00000012  c_w.l(libshutdown2.o)
-    0x00000348   0x00000348   0x00000000   Code   RO          665    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x00000348   0x00000348   0x00000000   Code   RO          667    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x00000348   0x00000348   0x00000006   Code   RO          679    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x0000034e   0x0000034e   0x00000000   Code   RO          669    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x0000034e   0x0000034e   0x00000004   Code   RO          670    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x00000352   0x00000352   0x00000000   Code   RO          672    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x00000352   0x00000352   0x00000008   Code   RO          673    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x0000035a   0x0000035a   0x00000002   Code   RO          694    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x0000035c   0x0000035c   0x00000000   Code   RO          742    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x0000035c   0x0000035c   0x00000004   Code   RO          743    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x00000360   0x00000360   0x00000006   Code   RO          744    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x00000284   0x00000284   0x00000008   Code   RO          654  * !!!main             c_w.l(__main.o)
+    0x0000028c   0x0000028c   0x00000034   Code   RO          815    !!!scatter          c_w.l(__scatter.o)
+    0x000002c0   0x000002c0   0x00000064   Code   RO          813    !!dclz77c           c_w.l(__dclz77c.o)
+    0x00000324   0x00000324   0x0000001c   Code   RO          817    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x00000340   0x00000340   0x00000002   Code   RO          681    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          688    .ARM.Collect$$libinit$$00000002  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          690    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          693    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          695    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          697    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          700    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          702    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          704    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          706    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          708    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          710    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          712    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          714    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          716    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          718    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          720    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          724    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          726    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          728    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000000   Code   RO          730    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x00000342   0x00000342   0x00000002   Code   RO          731    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x00000344   0x00000344   0x00000002   Code   RO          751    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          764    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          766    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          768    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          771    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          774    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          776    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000000   Code   RO          779    .ARM.Collect$$libshutdown$$00000011  c_w.l(libshutdown2.o)
+    0x00000346   0x00000346   0x00000002   Code   RO          780    .ARM.Collect$$libshutdown$$00000012  c_w.l(libshutdown2.o)
+    0x00000348   0x00000348   0x00000000   Code   RO          656    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x00000348   0x00000348   0x00000000   Code   RO          658    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x00000348   0x00000348   0x00000006   Code   RO          670    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x0000034e   0x0000034e   0x00000000   Code   RO          660    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x0000034e   0x0000034e   0x00000004   Code   RO          661    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x00000352   0x00000352   0x00000000   Code   RO          663    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x00000352   0x00000352   0x00000008   Code   RO          664    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x0000035a   0x0000035a   0x00000002   Code   RO          685    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x0000035c   0x0000035c   0x00000000   Code   RO          733    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x0000035c   0x0000035c   0x00000004   Code   RO          734    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x00000360   0x00000360   0x00000006   Code   RO          735    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x00000366   0x00000366   0x00000002   PAD
     0x00000368   0x00000368   0x00000030   Code   RO            4    .text               startup.o
     0x00000398   0x00000398   0x00000040   Code   RO           13    .text               random.o
-    0x000003d8   0x000003d8   0x00000058   Code   RO          149    .text               lcd.o
-    0x00000430   0x00000430   0x00000006   Code   RO          661    .text               c_w.l(heapauxi.o)
-    0x00000436   0x00000436   0x0000004a   Code   RO          681    .text               c_w.l(sys_stackheap_outer.o)
-    0x00000480   0x00000480   0x00000012   Code   RO          683    .text               c_w.l(exit.o)
+    0x000003d8   0x000003d8   0x00000058   Code   RO          146    .text               lcd.o
+    0x00000430   0x00000430   0x00000006   Code   RO          652    .text               c_w.l(heapauxi.o)
+    0x00000436   0x00000436   0x0000004a   Code   RO          672    .text               c_w.l(sys_stackheap_outer.o)
+    0x00000480   0x00000480   0x00000012   Code   RO          674    .text               c_w.l(exit.o)
     0x00000492   0x00000492   0x00000002   PAD
-    0x00000494   0x00000494   0x00000008   Code   RO          691    .text               c_w.l(libspace.o)
-    0x0000049c   0x0000049c   0x0000000c   Code   RO          752    .text               c_w.l(sys_exit.o)
-    0x000004a8   0x000004a8   0x00000002   Code   RO          763    .text               c_w.l(use_no_semi.o)
-    0x000004aa   0x000004aa   0x00000000   Code   RO          765    .text               c_w.l(indicate_semi.o)
+    0x00000494   0x00000494   0x00000008   Code   RO          682    .text               c_w.l(libspace.o)
+    0x0000049c   0x0000049c   0x0000000c   Code   RO          743    .text               c_w.l(sys_exit.o)
+    0x000004a8   0x000004a8   0x00000002   Code   RO          754    .text               c_w.l(use_no_semi.o)
+    0x000004aa   0x000004aa   0x00000000   Code   RO          756    .text               c_w.l(indicate_semi.o)
     0x000004aa   0x000004aa   0x00000002   PAD
     0x000004ac   0x000004ac   0x0000002c   Code   RO           41    i.ADC_In            adc.o
     0x000004d8   0x000004d8   0x000000ec   Code   RO           42    i.ADC_Init          adc.o
-    0x000005c4   0x000005c4   0x000000b8   Code   RO          561    i.ADC_Position      tetris.o
+    0x000005c4   0x000005c4   0x000000b8   Code   RO          558    i.ADC_Position      tetris.o
     0x0000067c   0x0000067c   0x0000000c   Code   RO           17    i.DAC_Out           dac.o
-    0x00000688   0x00000688   0x00000020   Code   RO          155    i.Delay1ms          st7735.o
-    0x000006a8   0x000006a8   0x00000018   Code   RO          562    i.GPIOPortF_Handler  tetris.o
-    0x000006c0   0x000006c0   0x00000038   Code   RO          563    i.PortD_Init        tetris.o
-    0x000006f8   0x000006f8   0x00000120   Code   RO          162    i.ST7735_DrawBitmap  st7735.o
-    0x00000818   0x00000818   0x000000f8   Code   RO          164    i.ST7735_DrawCharS  st7735.o
-    0x00000910   0x00000910   0x00000048   Code   RO          168    i.ST7735_DrawPixel  st7735.o
-    0x00000958   0x00000958   0x00000054   Code   RO          170    i.ST7735_DrawString  st7735.o
-    0x000009ac   0x000009ac   0x000000ac   Code   RO          171    i.ST7735_FillRect   st7735.o
-    0x00000a58   0x00000a58   0x00000024   Code   RO          172    i.ST7735_FillScreen  st7735.o
-    0x00000a7c   0x00000a7c   0x0000007c   Code   RO          174    i.ST7735_InitR      st7735.o
-    0x00000af8   0x00000af8   0x000000d4   Code   RO          176    i.ST7735_OutChar    st7735.o
-    0x00000bcc   0x00000bcc   0x00000016   Code   RO          177    i.ST7735_OutString  st7735.o
+    0x00000688   0x00000688   0x00000020   Code   RO          152    i.Delay1ms          st7735.o
+    0x000006a8   0x000006a8   0x00000018   Code   RO          559    i.GPIOPortF_Handler  tetris.o
+    0x000006c0   0x000006c0   0x00000038   Code   RO          560    i.PortD_Init        tetris.o
+    0x000006f8   0x000006f8   0x00000120   Code   RO          159    i.ST7735_DrawBitmap  st7735.o
+    0x00000818   0x00000818   0x000000f8   Code   RO          161    i.ST7735_DrawCharS  st7735.o
+    0x00000910   0x00000910   0x00000048   Code   RO          165    i.ST7735_DrawPixel  st7735.o
+    0x00000958   0x00000958   0x00000054   Code   RO          167    i.ST7735_DrawString  st7735.o
+    0x000009ac   0x000009ac   0x000000ac   Code   RO          168    i.ST7735_FillRect   st7735.o
+    0x00000a58   0x00000a58   0x00000024   Code   RO          169    i.ST7735_FillScreen  st7735.o
+    0x00000a7c   0x00000a7c   0x0000007c   Code   RO          171    i.ST7735_InitR      st7735.o
+    0x00000af8   0x00000af8   0x000000d4   Code   RO          173    i.ST7735_OutChar    st7735.o
+    0x00000bcc   0x00000bcc   0x00000016   Code   RO          174    i.ST7735_OutString  st7735.o
     0x00000be2   0x00000be2   0x00000002   PAD
-    0x00000be4   0x00000be4   0x00000020   Code   RO          187    i.ST7735_SetCursor  st7735.o
-    0x00000c04   0x00000c04   0x0000000c   Code   RO          189    i.ST7735_SetTextColor  st7735.o
-    0x00000c10   0x00000c10   0x0000020c   Code   RO          564    i.SysTick_Handler   tetris.o
-    0x00000e1c   0x00000e1c   0x00000030   Code   RO          565    i.SysTick_Init      tetris.o
-    0x00000e4c   0x00000e4c   0x0000000c   Code   RO          566    i.Timer1A_Handler   tetris.o
-    0x00000e58   0x00000e58   0x00000060   Code   RO           92    i.Timer1_Init       timer1.o
-    0x00000eb8   0x00000eb8   0x0000000c   Code   RO           93    i.Timer1_Stop       timer1.o
-    0x00000ec4   0x00000ec4   0x00000018   Code   RO          449    i.Timer5A_Handler   texas.o
-    0x00000edc   0x00000edc   0x00000094   Code   RO          567    i.collisionCheck    tetris.o
-    0x00000f70   0x00000f70   0x00000056   Code   RO          191    i.commandList       st7735.o
+    0x00000be4   0x00000be4   0x00000020   Code   RO          184    i.ST7735_SetCursor  st7735.o
+    0x00000c04   0x00000c04   0x0000000c   Code   RO          186    i.ST7735_SetTextColor  st7735.o
+    0x00000c10   0x00000c10   0x0000020c   Code   RO          561    i.SysTick_Handler   tetris.o
+    0x00000e1c   0x00000e1c   0x00000030   Code   RO          562    i.SysTick_Init      tetris.o
+    0x00000e4c   0x00000e4c   0x0000000c   Code   RO          563    i.Timer1A_Handler   tetris.o
+    0x00000e58   0x00000e58   0x00000060   Code   RO           89    i.Timer1_Init       timer1.o
+    0x00000eb8   0x00000eb8   0x0000000c   Code   RO           90    i.Timer1_Stop       timer1.o
+    0x00000ec4   0x00000ec4   0x00000018   Code   RO          446    i.Timer5A_Handler   texas.o
+    0x00000edc   0x00000edc   0x00000094   Code   RO          564    i.collisionCheck    tetris.o
+    0x00000f70   0x00000f70   0x00000056   Code   RO          188    i.commandList       st7735.o
     0x00000fc6   0x00000fc6   0x00000002   PAD
-    0x00000fc8   0x00000fc8   0x00000188   Code   RO          192    i.commonInit        st7735.o
-    0x00001150   0x00001150   0x00000074   Code   RO          568    i.drawSquare        tetris.o
+    0x00000fc8   0x00000fc8   0x00000188   Code   RO          189    i.commonInit        st7735.o
+    0x00001150   0x00001150   0x00000074   Code   RO          565    i.drawSquare        tetris.o
     0x000011c4   0x000011c4   0x00000074   Code   RO           44    i.leftButtonInit    adc.o
-    0x00001238   0x00001238   0x00000210   Code   RO          569    i.main              tetris.o
-    0x00001448   0x00001448   0x0000004c   Code   RO          111    i.playsample        sound.o
-    0x00001494   0x00001494   0x0000001c   Code   RO          112    i.playsound         sound.o
-    0x000014b0   0x000014b0   0x00000012   Code   RO          198    i.pushColor         st7735.o
+    0x00001238   0x00001238   0x00000210   Code   RO          566    i.main              tetris.o
+    0x00001448   0x00001448   0x0000004c   Code   RO          108    i.playsample        sound.o
+    0x00001494   0x00001494   0x0000001c   Code   RO          109    i.playsound         sound.o
+    0x000014b0   0x000014b0   0x00000012   Code   RO          195    i.pushColor         st7735.o
     0x000014c2   0x000014c2   0x00000002   PAD
     0x000014c4   0x000014c4   0x00000044   Code   RO           45    i.rightButtonInit   adc.o
-    0x00001508   0x00001508   0x00000074   Code   RO          199    i.setAddrWindow     st7735.o
-    0x0000157c   0x0000157c   0x00000842   Data   RO          201    .constdata          st7735.o
-    0x00001dbe   0x00001dbe   0x000041f7   Data   RO          571    .constdata          tetris.o
+    0x00001508   0x00001508   0x00000074   Code   RO          196    i.setAddrWindow     st7735.o
+    0x0000157c   0x0000157c   0x00000842   Data   RO          198    .constdata          st7735.o
+    0x00001dbe   0x00001dbe   0x000041f7   Data   RO          568    .constdata          tetris.o
     0x00005fb5   0x00005fb5   0x00000003   PAD
-    0x00005fb8   0x00005fb8   0x00000020   Data   RO          820    Region$$Table       anon$$obj.o
+    0x00005fb8   0x00005fb8   0x00000020   Data   RO          811    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00005fd8, Size: 0x000012f0, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000004ac])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   COMPRESSED   0x00000e58   Data   RW          113    .data               sound.o
-    0x20000e58   COMPRESSED   0x0000002c   Data   RW          202    .data               st7735.o
-    0x20000e84   COMPRESSED   0x00000004   Data   RW          454    .data               texas.o
-    0x20000e88   COMPRESSED   0x00000461   Data   RW          572    .data               tetris.o
+    0x20000000   COMPRESSED   0x00000e58   Data   RW          110    .data               sound.o
+    0x20000e58   COMPRESSED   0x0000002c   Data   RW          199    .data               st7735.o
+    0x20000e84   COMPRESSED   0x00000004   Data   RW          451    .data               texas.o
+    0x20000e88   COMPRESSED   0x00000461   Data   RW          569    .data               tetris.o
     0x200012e9   COMPRESSED   0x00000003   PAD
     0x200012ec   COMPRESSED   0x00000004   Data   RW           12    DATA                random.o
 
@@ -966,8 +966,8 @@ Memory Map of the image
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x200012f0        -       0x00000104   Zero   RW          570    .bss                tetris.o
-    0x200013f4        -       0x00000060   Zero   RW          692    .bss                c_w.l(libspace.o)
+    0x200012f0        -       0x00000104   Zero   RW          567    .bss                tetris.o
+    0x200013f4        -       0x00000060   Zero   RW          683    .bss                c_w.l(libspace.o)
     0x20001454   0x00006484   0x00000004   PAD
     0x20001458        -       0x00000000   Zero   RW            2    HEAP                startup.o
     0x20001458        -       0x00000400   Zero   RW            1    STACK               startup.o
