@@ -269,7 +269,6 @@ void EdgeCounter_Init(void){
   GPIO_PORTF_IM_R |= 0x10;      // (f) arm interrupt on PF4
   NVIC_PRI7_R |= (NVIC_PRI7_R&0xFF00FFFF)|0x00A00000; // (g) priority 5
   NVIC_EN0_R |= 0x40000000;      // (h) enable interrupt 30 in NVIC
-
 }
 void GPIOPortE_Handler(void){
   GPIO_PORTE_ICR_R = 0x04;     // acknowledge flag2
