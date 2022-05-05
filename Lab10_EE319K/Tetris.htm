@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Tetris.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Tetris.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu May 05 02:45:27 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu May 05 03:07:42 2022
 <BR><P>
 <H3>Maximum Stack Usage =        168 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -130,10 +130,10 @@ Function Pointers
  <LI><a href="#[9]">SVC_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[29]">SysCtl_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[c]">SysTick_Handler</a> from tetris.o(i.SysTick_Handler) referenced from startup.o(RESET)
- <LI><a href="#[20]">Timer0A_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
+ <LI><a href="#[20]">Timer0A_Handler</a> from timer0.o(i.Timer0A_Handler) referenced from startup.o(RESET)
  <LI><a href="#[21]">Timer0B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[22]">Timer1A_Handler</a> from tetris.o(i.Timer1A_Handler) referenced from startup.o(RESET)
- <LI><a href="#[23]">Timer1B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
+ <LI><a href="#[23]">Timer1B_Handler</a> from timer0.o(i.Timer1B_Handler) referenced from startup.o(RESET)
  <LI><a href="#[24]">Timer2A_Handler</a> from timer0.o(i.Timer2A_Handler) referenced from startup.o(RESET)
  <LI><a href="#[25]">Timer2B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[30]">Timer3A_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
@@ -468,13 +468,7 @@ Global Symbols
 <P><STRONG><a name="[29]"></a>SysCtl_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[20]"></a>Timer0A_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
-<BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
-</UL>
 <P><STRONG><a name="[21]"></a>Timer0B_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
-<BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
-</UL>
-<P><STRONG><a name="[23]"></a>Timer1B_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
 <P><STRONG><a name="[25]"></a>Timer2B_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup.o(RESET))
@@ -955,10 +949,20 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
+<P><STRONG><a name="[20]"></a>Timer0A_Handler</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, timer0.o(i.Timer0A_Handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Timer0A_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
+</UL>
 <P><STRONG><a name="[22]"></a>Timer1A_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, tetris.o(i.Timer1A_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[b4]"></a>Timer1_Stop</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, timer0.o(i.Timer1_Stop))
+<P><STRONG><a name="[23]"></a>Timer1B_Handler</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, timer0.o(i.Timer1B_Handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Timer1B_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
+</UL>
+<P><STRONG><a name="[b4]"></a>Timer1B_Stop</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, timer0.o(i.Timer1B_Stop))
 <BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;playtetris
 </UL>
 
@@ -1018,7 +1022,7 @@ Global Symbols
 <P><STRONG><a name="[7f]"></a>playtetris</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, sound.o(i.playtetris))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = playtetris
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer1_Stop
+<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer1B_Stop
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Out
 </UL>
 <BR>[Called By]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2A_Handler

@@ -30,14 +30,14 @@
 //          priority is 0 (high) to 7 (low)
 // Outputs: none
 void Timer0_Init(void(*task)(void), uint32_t period);
-void Timer0_Start(void);
-void Timer0_Stop(void);
-void Timer0_Handler(void);
+void Timer0A_Start(void);
+void Timer0A_Stop(void);
+void Timer0A_Handler(void);
 
 void Timer1_Init(void(*task)(void), uint32_t period);
-void Timer1_Start(void);
-void Timer1_Stop(void);
-void Timer1_Handler(void);
+void Timer1B_Start(void);
+void Timer1B_Stop(void);
+void Timer1B_Handler(void);
 
 void Timer2_Init(void(*task)(void), uint32_t period);
 void Timer2A_Start(void);
