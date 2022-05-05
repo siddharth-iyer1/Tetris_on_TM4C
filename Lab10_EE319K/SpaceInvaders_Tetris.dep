@@ -8,19 +8,19 @@ I (tm4c123gh6pm.h)(0x5388C2DA)
 F (.\ADC.c)(0x627377ED)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\adc.o --omf_browse .\adc.crf --depend .\adc.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x5388C2DA)
-F (.\Timer0.c)(0x62737E00)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\timer0.o --omf_browse .\timer0.crf --depend .\timer0.d)
+F (.\Timer0.c)(0x62741299)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\timer0.o --omf_browse .\timer0.crf --depend .\timer0.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x5388C2DA)
-I (Sound.h)(0x627377E5)
+I (Sound.h)(0x6273FD36)
 F (.\Timer1.c)(0x627373E5)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\timer1.o --omf_browse .\timer1.crf --depend .\timer1.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x5388C2DA)
-F (.\Sound.c)(0x62737F3B)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\sound.o --omf_browse .\sound.crf --depend .\sound.d)
+F (.\Sound.c)(0x6273FD52)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\sound.o --omf_browse .\sound.crf --depend .\sound.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x5388C2DA)
-I (Sound.h)(0x627377E5)
+I (Sound.h)(0x6273FD36)
 I (DAC.h)(0x61933C7E)
-I (Timer0.h)(0x62737A94)
+I (Timer0.h)(0x6273FDBE)
 F (.\LCD.s)(0x6267470C)(--cpu Cortex-M4 -g --apcs=interwork -I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1" --pd "_RTE_ SETA 1"--list .\lcd.lst --xref -o .\lcd.o --depend .\lcd.d)
 F (.\Print.s)(0x62678AE8)(--cpu Cortex-M4 -g --apcs=interwork -I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1" --pd "_RTE_ SETA 1"--list .\print.lst --xref -o .\print.o --depend .\print.d)
 F (.\ST7735.c)(0x6268572B)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\st7735.o --omf_browse .\st7735.crf --depend .\st7735.d)
@@ -37,7 +37,7 @@ F (.\PLL.c)(0x62685716)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_secti
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (PLL.h)(0x61933C7E)
 I (tm4c123gh6pm.h)(0x5388C2DA)
-F (.\Tetris.c)(0x62738006)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\tetris.o --omf_browse .\tetris.crf --depend .\tetris.d)
+F (.\Tetris.c)(0x62741C23)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\tetris.o --omf_browse .\tetris.crf --depend .\tetris.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
 I (tm4c123gh6pm.h)(0x5388C2DA)
 I (ST7735.h)(0x626A35E1)
@@ -46,13 +46,10 @@ I (Random.h)(0x5BF4770A)
 I (TExaS.h)(0x626E003F)
 I (ADC.h)(0x6272E43E)
 I (Images.h)(0x626C9F8C)
-I (Sound.h)(0x627377E5)
+I (Sound.h)(0x6273FD36)
 I (Timer1.h)(0x6273799C)
-I (Timer0.h)(0x62737A94)
+I (Timer0.h)(0x6273FDBE)
+I (Tetris.h)(0x627383E5)
 I (EdgeInterrupt.h)(0x62738096)
 F (.\Images.c)(0x6268D999)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\images.o --omf_browse .\images.crf --depend .\images.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
-F (.\EdgeInterrupt.c)(0x62738063)(-c --cpu Cortex-M4 -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_Tetris-IC:\Users\kylet\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\kylet\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="536" -D_RTE_ -DTM4C123GH6PM -D_RTE_ -Drvmdk -DPART_LM4F120H5QR-o .\edgeinterrupt.o --omf_browse .\edgeinterrupt.crf --depend .\edgeinterrupt.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025E85E)
-I (tm4c123gh6pm.h)(0x5388C2DA)
-I (EdgeInterrupt.h)(0x62738096)

@@ -20,7 +20,7 @@ void Sound_Init(void);
 // Output: none
 // special cases: as you wish to implement
 void Sound_Init(void);
-void playRowClear(void);
+void playrowclear(void);
 void playtetris(void);
 void playgameover(void);
 

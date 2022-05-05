@@ -34,9 +34,9 @@ void Sound_Init(){
 
 
 //********Function to play row clear*******************
-void playRowClear(void){
+void playrowclear(void){
 	if(rowclearCounter == rowclearLen){
-		Timer0_Stop();
+		Timer0A_Stop();
 		rowclearCounter = 0;
 	}
 	else{
@@ -50,7 +50,7 @@ void playRowClear(void){
 void playtetris(void){
 	
 	if(tetrisCounter == tetrisLen){
-		Timer1_Stop();
+		Timer1B_Stop();
 		tetrisCounter = 0;
 	}
 	else{

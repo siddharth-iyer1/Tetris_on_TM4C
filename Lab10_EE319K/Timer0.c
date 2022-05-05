@@ -51,17 +51,17 @@ void Timer0_Init(void(*task)(void), uint32_t period){
 	TIMER0_CTL_R = 0x00000001;
 }
 
-void Timer0_Start(void){
+void Timer0A_Start(void){
 	TIMER0_CTL_R |= 0x01;
 }
 
-void Timer0_Stop(void){
+void Timer0A_Stop(void){
 	TIMER0_CTL_R &= ~0x01;
 }
 
-void Timer0_Handler(void){
-	TIMER0_ICR_R = TIMER_ICR_TATOCINT; //acknowledge timer0a timeout
-	(*soundplay0)();
+void Timer0A_Handler(void){
+	TIMER0_ICR_R = 0x0001; //acknowledge timer0a timeout
+	playgameover();
 }
 
 
@@ -89,17 +89,17 @@ void Timer1_Init(void(*task)(void), uint32_t period){
 	TIMER1_CTL_R = 0x00000001;
 }
 
-void Timer1_Start(void){
+void Timer1B_Start(void){
 	TIMER1_CTL_R |= 0x01;
 }
 
-void Timer1_Stop(void){
+void Timer1B_Stop(void){
 	TIMER1_CTL_R &= ~0x01;
 }
 
-void Timer1_Handler(void){
-	TIMER1_ICR_R = TIMER_ICR_TATOCINT; //acknowledge timer0a timeout
-	(*soundplay1)();
+void Timer1B_Handler(void){
+	TIMER1_ICR_R = 0x00001; //acknowledge timer0a timeout
+	playrowclear();
 }
 
 
@@ -134,7 +134,7 @@ void Timer2A_Stop(void){
 }
 
 void Timer2A_Handler(void){
-	TIMER2_ICR_R = TIMER_ICR_TATOCINT; //acknowledge timer0a timeout
+	TIMER2_ICR_R = 0x001; //acknowledge timer0a timeout
 	playtetris();
 	timercount++;
 }

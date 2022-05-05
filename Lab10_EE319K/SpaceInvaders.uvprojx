@@ -453,11 +453,6 @@
               <FileType>1</FileType>
               <FilePath>.\Images.c</FilePath>
             </File>
-            <File>
-              <FileName>EdgeInterrupt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\EdgeInterrupt.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -482,5 +477,14 @@
     </components>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>SpaceInvaders</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>
