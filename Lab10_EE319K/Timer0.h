@@ -29,6 +29,18 @@
 // Inputs:  period in units (1/clockfreq)
 //          priority is 0 (high) to 7 (low)
 // Outputs: none
-void Timer0_Init(uint32_t period, uint32_t priority);
+void Timer0_Init(void(*task)(void), uint32_t period);
+void Timer0_Start(void);
+void Timer0_Stop(void);
+void Timer0_Handler(void);
 
+void Timer1_Init(void(*task)(void), uint32_t period);
+void Timer1_Start(void);
+void Timer1_Stop(void);
+void Timer1_Handler(void);
+
+void Timer2_Init(void(*task)(void), uint32_t period);
+void Timer2A_Start(void);
+void Timer2A_Stop(void);
+void Timer2A_Handler(void);
 #endif // __TIMER2INTS_H__

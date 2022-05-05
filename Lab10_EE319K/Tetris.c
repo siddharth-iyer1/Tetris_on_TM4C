@@ -11,6 +11,8 @@
 #include "Images.h"
 #include "Sound.h"
 #include "Timer1.h"
+#include "Timer0.h"
+#include "EdgeInterrupt.h"
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -19,12 +21,6 @@ int ADC_Position(uint32_t output);
 void Timer1A_Handler(void){ // can be used to perform tasks in background
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;// acknowledge TIMER1A timeout
    // execute user task
-}
-
-void GPIOPortF_Handler(void){
-	if((GPIO_PORTF_RIS_R & 0x01) == 0x01){
-		playsound(clearrow);									// Plays row clear sound. We can set the PortF Handler
-	}																				// when we detect a row clear
 }
 
 
@@ -448,8 +444,9 @@ int main(void){
 
 	ST7735_InitR(INITR_REDTAB); 
   ADC_Init();         // turn on ADC, set channel to 1
-	PortE_Init();
 	SysTick_Init(80000000/300);
+	Sound_Init();
+	EdgeCounter_Init();
 	Random_Init(55);
 	//Initializations
 	ST7735_FillScreen(0);
@@ -464,9 +461,14 @@ int main(void){
 	ST7735_OutString("Press the Left");
 	ST7735_SetCursor(3,14);
 	ST7735_OutString("Button to play");
-
-	while(GPIO_PORTE_DATA_R == 0){} //Welcome Screen ended, time to play
+	EnableInterrupts();
+		Timer2_Init(*playtetris,4000);
+	while(1){
+		Timer2A_Start();
+	}
 	
+	while(GPIO_PORTE_DATA_R == 0){} //Welcome Screen ended, time to play
+
 	
 		//Sets up playing screen
 		
@@ -479,7 +481,8 @@ int main(void){
 
 	while(1){ //Tetris Game Starts
 		EnableInterrupts();
-		playsound(clearrow);
+
+
 		
 		if(GPIO_PORTE_DATA_R && 0x01 == 1){
 			rotateBlock();

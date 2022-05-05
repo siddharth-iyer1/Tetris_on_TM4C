@@ -31,9 +31,7 @@ void DAC_Init(void){
 	
 	GPIO_PORTB_DIR_R |=  0x3F;
 	GPIO_PORTB_DEN_R |=  0x3F;
-	GPIO_PORTB_DR8R_R |= 0x3F;
-	GPIO_PORTF_DIR_R |= 0x0E;
-	GPIO_PORTF_DEN_R |= 0x0E;
+
 }
 
 // **************DAC_Out*********************

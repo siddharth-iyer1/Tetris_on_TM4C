@@ -453,6 +453,11 @@
               <FileType>1</FileType>
               <FilePath>.\Images.c</FilePath>
             </File>
+            <File>
+              <FileName>EdgeInterrupt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\EdgeInterrupt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

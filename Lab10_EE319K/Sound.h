@@ -19,14 +19,10 @@ void Sound_Init(void);
 //        count is the length of the array
 // Output: none
 // special cases: as you wish to implement
-void Sound_Start(const uint8_t *pt, uint32_t count);
+void Sound_Init(void);
+void playRowClear(void);
+void playtetris(void);
+void playgameover(void);
 
-enum sound{
-	clearrow
-};
-
-void playsound(enum sound);
-
-void playsample(void);
 
 #endif
