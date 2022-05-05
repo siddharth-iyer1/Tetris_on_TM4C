@@ -224,12 +224,12 @@ static block_t allBlocks[16] = {
 
 
 uint8_t BLOCK;
-	void PortD_Init(void){
+	void PortE_Init(void){
   volatile int delay;
-  SYSCTL_RCGCGPIO_R |= 0x08;
+  SYSCTL_RCGCGPIO_R |= 0x10;
   delay = SYSCTL_RCGCGPIO_R;
-  GPIO_PORTD_DIR_R &= 0x00;
-  GPIO_PORTD_DEN_R |= 0x0E;
+  GPIO_PORTE_DIR_R &= 0x00;
+  GPIO_PORTE_DEN_R |= 0x0E;
 }
 
 
@@ -435,7 +435,7 @@ void blockDrop(void){
 int checkGameOver(void){
 	int gameover = 0;
 	for(int i=0; i<10;i++){
-		if(tetrisBoard[3][i] == 1 && (allBlocks[BLOCK].offsetY[0]!=3 || allBlocks[BLOCK].offsetY[1]!=3 || allBlocks[BLOCK].offsetY[2]!=3)){
+		if(tetrisBoard[3][i] == 1 && (allBlocks[BLOCK].offsetY[0]!=1 || allBlocks[BLOCK].offsetY[1]!=1 || allBlocks[BLOCK].offsetY[2]!=1)){
 			gameover = 1;
 		}
 	}
@@ -448,10 +448,8 @@ int main(void){
 
 	ST7735_InitR(INITR_REDTAB); 
   ADC_Init();         // turn on ADC, set channel to 1
-	leftButtonInit();
-	rightButtonInit();
-	PortD_Init();
-	SysTick_Init(80000000/100);
+	PortE_Init();
+	SysTick_Init(80000000/300);
 	Random_Init(55);
 	//Initializations
 	ST7735_FillScreen(0);
@@ -466,28 +464,8 @@ int main(void){
 	ST7735_OutString("Press the Left");
 	ST7735_SetCursor(3,14);
 	ST7735_OutString("Button to play");
-	
-	// Spanish Version
 
-	if(GPIO_PORTE_DATA_R && 0x02 == 1){
-		ST7735_FillScreen(0);
-		ST7735_DrawBitmap(10,90,tetrisTitle,105,80);
-		ST7735_SetCursor(4,9);
-		ST7735_SetTextColor(ST7735_CYAN);
-		ST7735_OutString("¡Bienvenido a");
-		ST7735_SetCursor(7,10);
-		ST7735_OutString("Tetris!");
-		ST7735_SetCursor(2,12);
-		ST7735_OutString("Presiona el boton");
-		ST7735_SetCursor(3,13);
-		ST7735_OutString("izquierdo para");
-		ST7735_SetCursor(8,14);
-		ST7735_OutString("jugar");
-	}
-	
-	while(GPIO_PORTE_DATA_R && 0x01 == 0){
-		ST7735_FillScreen(0);
-	} //Welcome Screen ended, time to play
+	while(GPIO_PORTE_DATA_R == 0){} //Welcome Screen ended, time to play
 	
 	
 		//Sets up playing screen
@@ -514,15 +492,16 @@ int main(void){
 		DisableInterrupts(); //Do not want interrupts during refreshing/updating of the LCD screen & Tetris Array
 		drawBoard();
 		checkClear();
+		
 		if(checkGameOver() == 1){
 			//Game over print stuff
-			Delay100ms(30);
-			goto GAMEOVER;
+			//Delay100ms(30);
+			//goto GAMEOVER;
 		}
 		EnableInterrupts();
 		
 
-		GAMEOVER:main();
+//		GAMEOVER:main();
 		//Game Over, restart
 		//main();
 		
